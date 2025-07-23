@@ -1,9 +1,12 @@
 import { useState } from "react";
 import "./WelcomeBlock.css";
 import { Button, DatePicker } from "antd";
+import { updateDateOfBirth } from "../../redux/datesSlice";
+import { useDispatch } from "react-redux";
 
 export default function WelcomeBlock() {
   const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -18,7 +21,11 @@ export default function WelcomeBlock() {
               setDateOfBirth(dateString as string);
             }}
           />
-          <Button type="primary" size="large">
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => dispatch(updateDateOfBirth(dateOfBirth))}
+          >
             Submit
           </Button>
         </div>
