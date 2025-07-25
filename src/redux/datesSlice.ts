@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DatesState {
-  dateOfBirth: string | null;
+  dateOfBirth: Date | null;
   dates: string[];
   periods: string[];
 }
@@ -17,7 +17,7 @@ const datesSlice = createSlice({
   name: "dates",
   initialState,
   reducers: {
-    updateDateOfBirth: (state, action: PayloadAction<string | null>) => {
+    updateDateOfBirth: (state, action: PayloadAction<Date | null>) => {
       state.dateOfBirth = action.payload;
     },
     // addItem: (state, action: PayloadAction<CartItem>) => {

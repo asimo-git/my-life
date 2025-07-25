@@ -1,30 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-import { Layout } from "antd";
 import WelcomeBlock from "./components/WelcomeBlock/WelcomeBlock";
-
-const { Content, Sider } = Layout;
+import { useSelector } from "react-redux";
+import type { RootState } from "./redux/store";
+// import MapField from "./components/MapField/MapField";
+// import ChartDataPanel from "./components/ChartDataPanel/ChartDataPanel";
+import Chevron from "./assets/icons/chevron.svg?react";
 
 function App() {
-  const [collapsed, setCollapsed] = useState(true);
+  const dateOfBirth = useSelector(
+    (state: RootState) => state.dates.dateOfBirth
+  );
+  const [collapsed, setCollapsed] = useState(!dateOfBirth);
+
+  useEffect(() => {
+    setCollapsed(!dateOfBirth);
+  }, [dateOfBirth]);
 
   return (
     <>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-        >
-          {!collapsed && <div style={{ padding: 16 }}>Date Of Birth:</div>}
-        </Sider>
-        <Layout>
-          <Content style={{ margin: "0 16px" }}>
-            <WelcomeBlock />
-          </Content>
-        </Layout>
-      </Layout>
+      <div className="layout">
+        <div className={`sidebar ${collapsed ? "closed" : ""}`}>
+          {!collapsed && "<ChartDataPanel />"}
+          <button
+            className="collapse-button"
+            onClick={() => {
+              setCollapsed((prev) => !prev);
+            }}
+          >
+            <Chevron className="chevron" />
+          </button>
+        </div>
+        {dateOfBirth ? "<MapField />" : <WelcomeBlock />}
+      </div>
     </>
   );
 }

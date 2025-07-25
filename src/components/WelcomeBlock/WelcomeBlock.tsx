@@ -1,33 +1,38 @@
 import { useState } from "react";
 import "./WelcomeBlock.css";
-import { Button, DatePicker } from "antd";
 import { updateDateOfBirth } from "../../redux/datesSlice";
 import { useDispatch } from "react-redux";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Check from "../../assets/icons/check.svg?react";
 
 export default function WelcomeBlock() {
-  const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const dispatch = useDispatch();
+  console.log(dateOfBirth);
 
   return (
     <>
       <div className="welcome-block">
-        <h1>My Life</h1>
-        <div className="card">
+        <h1 className="title">My Life</h1>
+        <div className="datepicker-wrapper">
           <DatePicker
-            size="large"
-            placeholder="Enter your date of birth"
-            className="date-picker"
-            onChange={(_, dateString) => {
-              setDateOfBirth(dateString as string);
-            }}
+            className="datepicker-input"
+            onChange={(date) => setDateOfBirth(date)}
+            selected={dateOfBirth}
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={100}
+            placeholderText="Введите дату рождения"
+            dropdownMode="select"
           />
-          <Button
-            type="primary"
-            size="large"
+          <button
+            className="datepicker-btn"
+            disabled={!dateOfBirth}
             onClick={() => dispatch(updateDateOfBirth(dateOfBirth))}
           >
-            Submit
-          </Button>
+            <Check />
+          </button>
         </div>
       </div>
     </>
