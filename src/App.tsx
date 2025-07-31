@@ -5,7 +5,7 @@ import WelcomeBlock from "./components/WelcomeBlock/WelcomeBlock";
 import { useSelector } from "react-redux";
 import type { RootState } from "./redux/store";
 // import MapField from "./components/MapField/MapField";
-// import ChartDataPanel from "./components/ChartDataPanel/ChartDataPanel";
+import ChartDataPanel from "./components/ChartDataPanel/ChartDataPanel";
 import Chevron from "./assets/icons/chevron.svg?react";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
     <>
       <div className="layout">
         <div className={`sidebar ${collapsed ? "closed" : ""}`}>
-          {!collapsed && "<ChartDataPanel />"}
+          {!collapsed && <ChartDataPanel />}
           <button
             className="collapse-button"
             onClick={() => {

@@ -9,7 +9,6 @@ import Check from "../../assets/icons/check.svg?react";
 export default function WelcomeBlock() {
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const dispatch = useDispatch();
-  console.log(dateOfBirth);
 
   return (
     <>
@@ -27,7 +26,7 @@ export default function WelcomeBlock() {
             dropdownMode="select"
           />
           <button
-            className="datepicker-btn"
+            className="icon-button datepicker-btn"
             disabled={!dateOfBirth}
             onClick={() => dispatch(updateDateOfBirth(dateOfBirth))}
           >
