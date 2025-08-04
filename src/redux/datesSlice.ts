@@ -2,8 +2,8 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DatesState {
-  dateOfBirth: Date | null;
-  dates: string[];
+  dateOfBirth: number | null;
+  dates: [number, string][];
   periods: string[];
 }
 
@@ -17,12 +17,13 @@ const datesSlice = createSlice({
   name: "dates",
   initialState,
   reducers: {
-    updateDateOfBirth: (state, action: PayloadAction<Date | null>) => {
+    updateDateOfBirth: (state, action: PayloadAction<number | null>) => {
       state.dateOfBirth = action.payload;
     },
-    // addItem: (state, action: PayloadAction<CartItem>) => {
-    //   state.items[action.payload.id] = action.payload;
-    // },
+    addItem: (state, action: PayloadAction<[number, string]>) => {
+      state.dates.push(action.payload);
+      state.dates.sort((a, b) => a[0] - b[0]);
+    },
     // increaseQuantity: (state, action: PayloadAction<number>) => {
     //   state.items[action.payload].quantity++;
     // },
@@ -44,5 +45,5 @@ const datesSlice = createSlice({
   },
 });
 
-export const { updateDateOfBirth } = datesSlice.actions;
+export const { updateDateOfBirth, addItem } = datesSlice.actions;
 export default datesSlice.reducer;

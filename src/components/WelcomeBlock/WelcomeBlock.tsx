@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Check from "../../assets/icons/check.svg?react";
+import { getDayTimestamp } from "../../utils";
 
 export default function WelcomeBlock() {
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
@@ -28,7 +29,10 @@ export default function WelcomeBlock() {
           <button
             className="icon-button datepicker-btn"
             disabled={!dateOfBirth}
-            onClick={() => dispatch(updateDateOfBirth(dateOfBirth))}
+            onClick={() =>
+              dateOfBirth &&
+              dispatch(updateDateOfBirth(getDayTimestamp(dateOfBirth)))
+            }
           >
             <Check />
           </button>
