@@ -15,7 +15,7 @@ export default function BirthdayCard() {
     <div className="card">
       <h2 className="subtitle">Дата рождения</h2>
       <Flatpickr
-        value={dateOfBirth ? new Date(dateOfBirth) : undefined}
+        value={dateOfBirth ? new Date(dateOfBirth) : ""}
         onChange={([date]) =>
           dispatch(updateDateOfBirth(getDayTimestamp(date)))
         }

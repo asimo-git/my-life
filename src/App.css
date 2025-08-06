@@ -34,3 +34,9 @@
 .closed .chevron {
   transform: rotate(0.5turn);
 }
+
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 50vw;
+  }
+}

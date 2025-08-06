@@ -4,7 +4,6 @@ import { updateDateOfBirth } from "../../redux/datesSlice";
 import { useDispatch } from "react-redux";
 import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
-import "react-datepicker/dist/react-datepicker.css";
 import Check from "../../assets/icons/check.svg?react";
 import { getDayTimestamp } from "../../utils";
 
@@ -19,7 +18,7 @@ export default function WelcomeBlock() {
         <div className={styles.datepickerWrapper}>
           <Flatpickr
             className={styles.flatpickrInput}
-            value={dateOfBirth ? new Date(dateOfBirth) : undefined}
+            value={dateOfBirth ? new Date(dateOfBirth) : []}
             onChange={([date]) => setDateOfBirth(date)}
             placeholder="Введите дату рождения"
           />

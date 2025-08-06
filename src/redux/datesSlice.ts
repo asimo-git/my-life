@@ -1,15 +1,21 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
+type DateItem = {
+  id: string;
+  timestamp: number;
+  description: string;
+};
+
 interface DatesState {
   dateOfBirth: number | null;
-  dates: [number, string][];
+  events: DateItem[];
   periods: string[];
 }
 
 const initialState: DatesState = {
   dateOfBirth: null,
-  dates: [],
+  events: [],
   periods: [],
 };
 
@@ -20,30 +26,36 @@ const datesSlice = createSlice({
     updateDateOfBirth: (state, action: PayloadAction<number | null>) => {
       state.dateOfBirth = action.payload;
     },
-    addItem: (state, action: PayloadAction<[number, string]>) => {
-      state.dates.push(action.payload);
-      state.dates.sort((a, b) => a[0] - b[0]);
+    addItem(state, action: PayloadAction<DateItem>) {
+      state.events.push(action.payload);
+      state.events.sort((a, b) => a.timestamp - b.timestamp);
     },
-    // increaseQuantity: (state, action: PayloadAction<number>) => {
-    //   state.items[action.payload].quantity++;
-    // },
-    // decreaseQuantity: (state, action: PayloadAction<number>) => {
-    //   state.items[action.payload].quantity--;
-    //   if (state.items[action.payload].quantity === 0) {
-    //     delete state.items[action.payload];
-    //   }
-    // },
-    // removeItem: (state, action: PayloadAction<number>) => {
-    //   delete state.items[action.payload];
-    // },
-    // clearCart: (state) => {
-    //   state.items = {};
-    // },
+    updateItem(
+      state,
+      action: PayloadAction<{
+        id: string;
+        timestamp: number;
+        description: string;
+      }>
+    ) {
+      const index = state.events.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.events[index] = action.payload;
+        state.events.sort((a, b) => a.timestamp - b.timestamp);
+      }
+      console.log("jjjjj");
+    },
+    deleteItem(state, action: PayloadAction<string>) {
+      state.events = state.events.filter((item) => item.id !== action.payload);
+    },
     hydrate: (state, action: PayloadAction<DatesState>) => {
       return action.payload;
     },
   },
 });
 
-export const { updateDateOfBirth, addItem } = datesSlice.actions;
+export const { updateDateOfBirth, addItem, updateItem, deleteItem } =
+  datesSlice.actions;
 export default datesSlice.reducer;

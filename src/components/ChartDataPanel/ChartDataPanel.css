@@ -20,3 +20,8 @@
   border-radius: 10px;
   border: none;
 }
+
+.data-panel button {
+  width: 90px;
+  border-radius: 10px;
+}

@@ -3,30 +3,40 @@ import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
 import { getDayTimestamp } from "../../../utils";
 import { useEffect, useState } from "react";
-import { addItem } from "../../../redux/datesSlice";
+import { deleteItem, updateItem } from "../../../redux/datesSlice";
 import styles from "./DateLine.module.css";
 
 export default function DateLine({
-  initialDate,
+  id,
+  initialTimestamp,
   initialDescription,
 }: {
-  initialDate: number;
+  id: string;
+  initialTimestamp: number;
   initialDescription: string;
 }) {
-  const [date, setDate] = useState(initialDate);
+  const [date, setDate] = useState(initialTimestamp);
   const [description, setDescription] = useState(initialDescription);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (date && description) dispatch(addItem([date, description]));
+    dispatch(updateItem({ id, timestamp: date, description }));
   }, [date, description]);
 
   return (
     <div className={styles.dateLine}>
+      <button
+        className={`icon-button ${styles.deleteBtn}`}
+        onClick={() => dispatch(deleteItem(id))}
+        title="Удалить"
+      >
+        ❌
+      </button>
       <Flatpickr
         value={new Date(date)}
-        onChange={([date]) => setDate(date ? getDayTimestamp(date) : 0)}
+        onChange={([selectedDate]) =>
+          setDate(selectedDate ? getDayTimestamp(selectedDate) : 0)
+        }
       />
 
       <textarea
