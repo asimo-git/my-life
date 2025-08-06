@@ -1,4 +1,4 @@
-.welcome-block {
+.welcomeBlock {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -11,15 +11,14 @@
   margin-bottom: 5vh;
 }
 
-.datepicker-wrapper {
+.datepickerWrapper {
   position: relative;
   width: 100%;
   max-width: 300px;
 }
 
-.datepicker-input {
+.flatpickrInput {
   width: 100%;
-  padding-right: 44px;
   padding-left: 10px;
   height: 40px;
   font-size: 16px;
@@ -27,9 +26,9 @@
   border: none;
 }
 
-.datepicker-btn {
+.button {
   position: absolute;
-  right: 4px;
+  right: 0;
   top: 50%;
   height: 30px;
   transform: translateY(-50%);

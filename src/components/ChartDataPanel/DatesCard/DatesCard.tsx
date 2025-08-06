@@ -1,4 +1,4 @@
-import "./DatesCard.css";
+// import styles from "./DatesCard.module.css";
 import DateLine from "../DateLine/DateLine";
 
 export default function DatesCard() {
@@ -9,11 +9,11 @@ export default function DatesCard() {
 
   return (
     <div className="card">
-      <h2>Важные даты</h2>
+      <h2 className="subtitle">Важные даты</h2>
       <div className="date-container">
         <DateLine
           initialDate={16546546}
-          initialDescription="fffffffffffffffffffff"
+          initialDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
         />
       </div>
     </div>

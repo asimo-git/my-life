@@ -1,0 +1,30 @@
+.dateLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2vh;
+}
+
+.description {
+  resize: none;
+  background: transparent;
+  overflow: hidden;
+  height: 1.5em;
+  min-width: 150px;
+  flex-grow: 1;
+  transition: all 0.2s ease;
+  border: none;
+  border-bottom: 1px solid #d1d5db;
+  padding: 5px;
+  hyphens: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  font: inherit;
+}
+
+.description:focus {
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}

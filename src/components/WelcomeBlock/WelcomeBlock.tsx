@@ -1,8 +1,9 @@
 import { useState } from "react";
-import "./WelcomeBlock.css";
+import styles from "./WelcomeBlock.module.css";
 import { updateDateOfBirth } from "../../redux/datesSlice";
 import { useDispatch } from "react-redux";
-import DatePicker from "react-datepicker";
+import "flatpickr/dist/themes/airbnb.css";
+import Flatpickr from "react-flatpickr";
 import "react-datepicker/dist/react-datepicker.css";
 import Check from "../../assets/icons/check.svg?react";
 import { getDayTimestamp } from "../../utils";
@@ -13,21 +14,17 @@ export default function WelcomeBlock() {
 
   return (
     <>
-      <div className="welcome-block">
-        <h1 className="title">My Life</h1>
-        <div className="datepicker-wrapper">
-          <DatePicker
-            className="datepicker-input"
-            onChange={(date) => setDateOfBirth(date)}
-            selected={dateOfBirth}
-            showYearDropdown
-            scrollableYearDropdown
-            yearDropdownItemNumber={100}
-            placeholderText="Введите дату рождения"
-            dropdownMode="select"
+      <div className={styles.welcomeBlock}>
+        <h1 className={styles.title}>My Life</h1>
+        <div className={styles.datepickerWrapper}>
+          <Flatpickr
+            className={styles.flatpickrInput}
+            value={dateOfBirth ? new Date(dateOfBirth) : undefined}
+            onChange={([date]) => setDateOfBirth(date)}
+            placeholder="Введите дату рождения"
           />
           <button
-            className="icon-button datepicker-btn"
+            className={`icon-button ${styles.button}`}
             disabled={!dateOfBirth}
             onClick={() =>
               dateOfBirth &&
