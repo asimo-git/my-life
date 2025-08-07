@@ -4,9 +4,10 @@
   font-weight: 400;
 
   --main-color: #f0f0ed;
-  --accent-color: #2e4d2fd4;
+  --accent-color: #2e4d2f;
   --text-color: #293d31;
   --light-accent-color: #c6ff93;
+  --sidebar-with: 30vw;
 
   color: var(--text-color);
   background-color: var(--main-color);

@@ -24,7 +24,7 @@ function App() {
         <div className={`sidebar ${collapsed ? "closed" : ""}`}>
           {!collapsed && <ChartDataPanel />}
           <button
-            className="collapse-button"
+            className={`collapse-button ${collapsed ? "closed" : ""}`}
             onClick={() => {
               setCollapsed((prev) => !prev);
             }}

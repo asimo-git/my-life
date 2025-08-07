@@ -1,6 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import type { AppDispatch, RootState } from "./store";
-import { addItem } from "./datesSlice";
+import { addItem, addPeriod } from "./datesSlice";
 
 export function addNewItemThunk() {
   return function (dispatch: AppDispatch, getState: () => RootState) {
@@ -15,5 +15,23 @@ export function addNewItemThunk() {
     };
 
     dispatch(addItem(newItem));
+  };
+}
+
+export function addNewPeriodThunk() {
+  return function (dispatch: AppDispatch, getState: () => RootState) {
+    const state = getState().dates;
+
+    const lastPeriod = state.periods.at(-1);
+    const startTimestamp =
+      lastPeriod?.timestamp[1] ?? state.dateOfBirth ?? Date.now();
+
+    const newItem = {
+      id: nanoid(),
+      timestamp: [startTimestamp, Date.now()],
+      description: "",
+    };
+
+    dispatch(addPeriod(newItem));
   };
 }

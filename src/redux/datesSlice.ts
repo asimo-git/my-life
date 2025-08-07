@@ -7,10 +7,16 @@ type DateItem = {
   description: string;
 };
 
+type PeriodItem = {
+  id: string;
+  timestamp: number[];
+  description: string;
+};
+
 interface DatesState {
   dateOfBirth: number | null;
   events: DateItem[];
-  periods: string[];
+  periods: PeriodItem[];
 }
 
 const initialState: DatesState = {
@@ -30,6 +36,10 @@ const datesSlice = createSlice({
       state.events.push(action.payload);
       state.events.sort((a, b) => a.timestamp - b.timestamp);
     },
+    addPeriod(state, action: PayloadAction<PeriodItem>) {
+      state.periods.push(action.payload);
+      state.periods.sort((a, b) => a.timestamp[0] - b.timestamp[0]);
+    },
     updateItem(
       state,
       action: PayloadAction<{
@@ -45,10 +55,35 @@ const datesSlice = createSlice({
         state.events[index] = action.payload;
         state.events.sort((a, b) => a.timestamp - b.timestamp);
       }
-      console.log("jjjjj");
     },
-    deleteItem(state, action: PayloadAction<string>) {
-      state.events = state.events.filter((item) => item.id !== action.payload);
+    updatePeriod(
+      state,
+      action: PayloadAction<{
+        id: string;
+        timestamp: number[];
+        description: string;
+      }>
+    ) {
+      const index = state.periods.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.periods[index] = action.payload;
+        state.periods.sort((a, b) => a.timestamp[0] - b.timestamp[0]);
+      }
+    },
+    deleteItem(
+      state,
+      action: PayloadAction<{ id: string; mode: "date" | "range" }>
+    ) {
+      if (action.payload.mode === "range")
+        state.periods = state.periods.filter(
+          (item) => item.id !== action.payload.id
+        );
+      if (action.payload.mode === "date")
+        state.events = state.events.filter(
+          (item) => item.id !== action.payload.id
+        );
     },
     hydrate: (state, action: PayloadAction<DatesState>) => {
       return action.payload;
@@ -56,6 +91,12 @@ const datesSlice = createSlice({
   },
 });
 
-export const { updateDateOfBirth, addItem, updateItem, deleteItem } =
-  datesSlice.actions;
+export const {
+  updateDateOfBirth,
+  addItem,
+  updateItem,
+  updatePeriod,
+  deleteItem,
+  addPeriod,
+} = datesSlice.actions;
 export default datesSlice.reducer;

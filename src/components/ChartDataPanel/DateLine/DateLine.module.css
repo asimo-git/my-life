@@ -34,3 +34,7 @@
   width: auto;
   padding: 0 5px;
 }
+
+.dateLine .rangeInput:global(.flatpickr-input) {
+  max-width: 200px;
+}

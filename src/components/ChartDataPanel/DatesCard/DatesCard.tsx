@@ -16,6 +16,7 @@ export default function DatesCard() {
           <DateLine
             key={item.id}
             id={item.id}
+            mode="date"
             initialTimestamp={item.timestamp}
             initialDescription={item.description}
           />

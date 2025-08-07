@@ -1,5 +1,7 @@
 .data-panel {
   padding: 24px;
+  background: var(--accent-color);
+  color: var(--main-color);
 }
 
 .card {
