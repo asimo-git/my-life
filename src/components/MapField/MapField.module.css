@@ -1,0 +1,47 @@
+.mapBlock {
+  flex-grow: 1;
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+.mapContainer {
+  position: relative;
+}
+
+.mapContainer::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  background: #c9a66b;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.timelineItem {
+  width: 100%;
+}
+
+.timelineDot {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border-radius: 50%;
+  border: solid 1px black;
+  z-index: 10;
+  background-color: var(--accent-color);
+}
+
+.timelineContent {
+  position: absolute;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  right: 50%;
+}

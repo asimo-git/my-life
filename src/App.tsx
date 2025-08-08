@@ -7,6 +7,7 @@ import type { RootState } from "./redux/store";
 // import MapField from "./components/MapField/MapField";
 import ChartDataPanel from "./components/ChartDataPanel/ChartDataPanel";
 import Chevron from "./assets/icons/chevron.svg?react";
+import MapField from "./components/MapField/MapField";
 
 function App() {
   const dateOfBirth = useSelector(
@@ -32,7 +33,7 @@ function App() {
             <Chevron className="chevron" />
           </button>
         </div>
-        {dateOfBirth ? "<MapField />" : <WelcomeBlock />}
+        {dateOfBirth ? <MapField /> : <WelcomeBlock />}
       </div>
     </>
   );

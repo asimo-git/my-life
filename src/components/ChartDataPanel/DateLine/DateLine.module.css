@@ -15,7 +15,7 @@
   transition: all 0.2s ease;
   border: none;
   border-bottom: 1px solid #d1d5db;
-  padding: 5px;
+  padding: 0 5px;
   hyphens: auto;
   word-break: break-word;
   overflow-wrap: break-word;
