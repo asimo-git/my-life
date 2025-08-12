@@ -5,12 +5,14 @@ type DateItem = {
   id: string;
   timestamp: number;
   description: string;
+  color: string;
 };
 
 type PeriodItem = {
   id: string;
   timestamp: number[];
   description: string;
+  color: string;
 };
 
 interface DatesState {
@@ -46,6 +48,7 @@ const datesSlice = createSlice({
         id: string;
         timestamp: number;
         description: string;
+        color: string;
       }>
     ) {
       const index = state.events.findIndex(
@@ -62,6 +65,7 @@ const datesSlice = createSlice({
         id: string;
         timestamp: number[];
         description: string;
+        color: string;
       }>
     ) {
       const index = state.periods.findIndex(

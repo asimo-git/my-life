@@ -7,7 +7,7 @@
   --accent-color: #2e4d2f;
   --text-color: #293d31;
   --light-accent-color: #c6ff93;
-  --sidebar-with: 30vw;
+  --sidebar-width: 30vw;
 
   color: var(--text-color);
   background-color: var(--main-color);
@@ -63,4 +63,13 @@ button {
   background-color: #ccc;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.light-button {
+  background-color: var(--light-accent-color);
+  color: var(--text-color);
+}
+
+.light-button:hover {
+  background-color: var(--main-color);
 }

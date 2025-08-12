@@ -6,7 +6,8 @@
 .sidebar {
   height: 100vh;
   position: relative;
-  width: var(--sidebar-with);
+  min-width: var(--sidebar-width);
+  margin-left: 0;
   background: var(--accent-color);
   transition: 0.3s linear;
 }
@@ -15,15 +16,16 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: var(--sidebar-with);
+  width: var(--sidebar-width);
   height: 7vh;
   border: none;
   background-color: var(--light-accent-color);
   transition: 0.3s linear;
+  text-align: right;
 }
 
 .closed {
-  width: 8vw;
+  margin-left: calc(var(--sidebar-width) * -1 + 8vw);
 }
 
 .chevron {
@@ -37,6 +39,6 @@
 
 @media (max-width: 1200px) {
   :root {
-    --sidebar-with: 50vw;
+    --sidebar-width: 50vw;
   }
 }

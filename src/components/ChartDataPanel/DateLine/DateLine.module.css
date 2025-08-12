@@ -17,6 +17,7 @@
   border-bottom: 1px solid #d1d5db;
   padding: 0 5px;
   hyphens: auto;
+  color: var(--light-accent-color);
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -37,4 +38,46 @@
 
 .dateLine .rangeInput:global(.flatpickr-input) {
   max-width: 200px;
+}
+
+.colorInput {
+  -webkit-appearance: none;
+  border: 1px solid white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Для Chrome, Safari, Edge */
+.colorInput::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 50%;
+}
+.colorInput::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+/* Для Firefox */
+.colorInput::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.colorInputRange {
+  border-radius: 0;
+}
+
+.colorInputRange::-webkit-color-swatch-wrapper {
+  border-radius: 0;
+}
+.colorInputRange::-webkit-color-swatch {
+  border-radius: 0;
+}
+
+/* Для Firefox */
+.colorInputRange::-moz-color-swatch {
+  border-radius: 0;
 }

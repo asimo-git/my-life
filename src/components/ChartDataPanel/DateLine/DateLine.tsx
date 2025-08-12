@@ -14,24 +14,28 @@ export default function DateLine({
   id,
   initialTimestamp,
   initialDescription,
+  initialColor,
   mode,
 }: {
   id: string;
   initialTimestamp: number | number[];
   initialDescription: string;
+  initialColor: string;
   mode: "range" | "date";
 }) {
   const [date, setDate] = useState(initialTimestamp);
   const [description, setDescription] = useState(initialDescription);
+  const [color, setColor] = useState(initialColor);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (mode === "range" && Array.isArray(date)) {
-      dispatch(updatePeriod({ id, timestamp: date, description }));
+      dispatch(updatePeriod({ id, timestamp: date, description, color }));
     } else if (typeof date === "number") {
-      dispatch(updateItem({ id, timestamp: date, description }));
+      dispatch(updateItem({ id, timestamp: date, description, color }));
     }
-  }, [date, description]);
+  }, [date, description, color]);
 
   return (
     <div className={styles.dateLine}>
@@ -58,6 +62,16 @@ export default function DateLine({
               : getDayTimestamp(dates[0])
           )
         }
+      />
+
+      <input
+        type="color"
+        className={`${mode === "range" && styles.colorInputRange} ${
+          styles.colorInput
+        }`}
+        value={color}
+        onChange={(e) => setColor(e.target.value)}
+        title="Выбрать цвет"
       />
 
       <textarea

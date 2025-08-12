@@ -58,6 +58,7 @@ export default function MapField() {
                 className={styles.timelineDot}
                 style={{
                   top: `${positionShifts[index]}%`,
+                  backgroundColor: item.color,
                 }}
               ></div>
               <div

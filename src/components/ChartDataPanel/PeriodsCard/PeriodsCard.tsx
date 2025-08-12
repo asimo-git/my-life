@@ -28,11 +28,12 @@ export default function PeriodsCard() {
             mode="range"
             initialTimestamp={item.timestamp}
             initialDescription={item.description}
+            initialColor={item.color}
           />
         ))}
       </div>
       <button
-        className="icon-button"
+        className="icon-button light-button"
         onClick={() => dispatch(addNewPeriodThunk())}
       >
         Добавить

@@ -12,6 +12,7 @@ export function addNewItemThunk() {
       id: nanoid(),
       timestamp: lastTimestamp,
       description: "",
+      color: "#2e4d2f",
     };
 
     dispatch(addItem(newItem));
@@ -30,6 +31,7 @@ export function addNewPeriodThunk() {
       id: nanoid(),
       timestamp: [startTimestamp, Date.now()],
       description: "",
+      color: "#c6ff93",
     };
 
     dispatch(addPeriod(newItem));

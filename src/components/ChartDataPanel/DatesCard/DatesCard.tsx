@@ -19,11 +19,12 @@ export default function DatesCard() {
             mode="date"
             initialTimestamp={item.timestamp}
             initialDescription={item.description}
+            initialColor={item.color}
           />
         ))}
       </div>
       <button
-        className="icon-button"
+        className="icon-button light-button"
         onClick={() => dispatch(addNewItemThunk())}
       >
         Добавить
