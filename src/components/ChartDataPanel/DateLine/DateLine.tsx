@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
-import { getDayTimestamp } from "../../../utils";
+import { getDayTimestamp } from "../../../utils/utils";
 import { useEffect, useState } from "react";
 import {
   deleteItem,

@@ -3,7 +3,7 @@ import Flatpickr from "react-flatpickr";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
 import { updateDateOfBirth } from "../../../redux/datesSlice";
-import { getDayTimestamp } from "../../../utils";
+import { getDayTimestamp } from "../../../utils/utils";
 
 export default function BirthdayCard() {
   const dateOfBirth = useSelector(
