@@ -15,6 +15,14 @@ export default function MapField() {
   const [eventPositions, setEventPositions] = useState<
     { pointPos: number; descPos: number }[]
   >([]);
+  const [periodPositions, setPeriodPositions] = useState<
+    {
+      startPos: number;
+      endPos: number;
+      widthOffset: number;
+      shiftDescription?: boolean;
+    }[]
+  >([]);
   const [timelineLength, setTimelineLength] = useState<string>("0");
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,7 +37,7 @@ export default function MapField() {
   useEffect(() => {
     if (!dateOfBirth || !containerRef.current) return;
     const timelineHeightPx = containerRef.current.clientHeight;
-
+    console.log(timelineHeightPx);
     const pointPositions = events.map(
       (item) =>
         ((item.timestamp - dateOfBirth) / (Date.now() - dateOfBirth)) *
@@ -45,6 +53,47 @@ export default function MapField() {
 
     setEventPositions(adjusted);
   }, [events, dateOfBirth]);
+
+  useEffect(() => {
+    if (!dateOfBirth || !containerRef.current) return;
+
+    const timelineHeightPx = containerRef.current.clientHeight;
+    const lifeSpan = Date.now() - dateOfBirth;
+
+    let positions = periods.map((item, idx) => {
+      const [start, end] = item.timestamp;
+      return {
+        idx,
+        startPos: ((start - dateOfBirth) / lifeSpan) * timelineHeightPx,
+        endPos: ((end - dateOfBirth) / lifeSpan) * timelineHeightPx,
+        widthOffset: 0,
+      };
+    });
+
+    let active: typeof positions = [];
+
+    for (const current of positions) {
+      active = active.filter((p) => p.endPos > current.startPos);
+
+      active.push(current);
+
+      active.forEach((p, i) => {
+        p.widthOffset = i * 10;
+      });
+    }
+
+    const positionsWithShift = positions.map((pos, i, arr) => {
+      let shiftDescription = false;
+      if (i < arr.length - 1) {
+        if (arr[i + 1].startPos - pos.startPos < 30) {
+          shiftDescription = true;
+        }
+      }
+      return { ...pos, shiftDescription };
+    });
+
+    setPeriodPositions(positionsWithShift);
+  }, [periods, dateOfBirth]);
 
   return (
     <>
@@ -103,6 +152,44 @@ export default function MapField() {
                 >
                   {item.description}
                 </div>
+              </div>
+            );
+          })}
+
+          {periods.map((item, index) => {
+            if (!periodPositions[index]) return null;
+            return (
+              <div
+                className={styles.periodBlock}
+                style={{
+                  top: `${periodPositions[index].startPos}px`,
+                  height: `${
+                    periodPositions[index].endPos -
+                    periodPositions[index].startPos
+                  }px`,
+                  borderTop: `2px solid ${item.color}B3`,
+                }}
+              >
+                <div
+                  className={styles.periodDescription}
+                  style={{
+                    marginTop: periodPositions[index].shiftDescription
+                      ? "-25px"
+                      : undefined,
+                  }}
+                >
+                  {item.description}
+                </div>
+                <div
+                  className={styles.timelinePeriod}
+                  key={item.id}
+                  style={{
+                    backgroundColor: `${item.color}B3`,
+                    width: `${
+                      30 + (periodPositions[index]?.widthOffset || 0)
+                    }px`,
+                  }}
+                ></div>
               </div>
             );
           })}
