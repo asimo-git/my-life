@@ -3,11 +3,12 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --main-color: #f0f0ed;
-  --accent-color: #2e4d2f;
-  --text-color: #293d31;
-  --light-accent-color: #c6ff93;
+  --main-color: #2a4b37;
+  --accent-color: #1e3b2a;
+  --text-color: #dccdb8;
+  --light-accent-color: #45a049;
   --sidebar-width: 30vw;
+  --font-serif: "EB Garamond", serif;
 
   color: var(--text-color);
   background-color: var(--main-color);
@@ -46,6 +47,12 @@ h2 {
   margin: 0;
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+}
+
 button {
   cursor: pointer;
 }
@@ -72,10 +79,17 @@ button {
 }
 
 .light-button {
-  background-color: var(--light-accent-color);
+  background-color: var(--main-color);
   color: var(--text-color);
 }
 
 .light-button:hover {
-  background-color: var(--main-color);
+  background-color: var(--light-accent-color);
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background-color: var(--accent-color) !important;
+  border: none !important;
 }

@@ -14,10 +14,10 @@
   flex-grow: 1;
   transition: all 0.2s ease;
   border: none;
-  border-bottom: 1px solid #d1d5db;
+  border-bottom: 1px solid var(--text-color);
   padding: 0 5px;
   hyphens: auto;
-  color: var(--light-accent-color);
+  color: var(--text-color);
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -42,7 +42,7 @@
 
 .colorInput {
   -webkit-appearance: none;
-  border: 1px solid white;
+  border: 1px solid var(--text-color);
   width: 28px;
   height: 28px;
   border-radius: 50%;

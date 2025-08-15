@@ -1,13 +1,10 @@
 .data-panel {
   padding: 24px;
   background: var(--accent-color);
-  color: var(--main-color);
   width: var(--sidebar-width);
 }
 
 .card {
-  border-bottom: dashed 2px var(--light-accent-color);
-  border-top: dashed 2px var(--light-accent-color);
   margin-bottom: 2vh;
   padding: 2vh 0;
 }
@@ -27,4 +24,8 @@
 .data-panel button {
   width: 90px;
   border-radius: 10px;
+}
+
+input {
+  background-color: var(--text-color);
 }
