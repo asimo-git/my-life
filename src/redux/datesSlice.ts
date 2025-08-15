@@ -1,25 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-
-type DateItem = {
-  id: string;
-  timestamp: number;
-  description: string;
-  color: string;
-};
-
-type PeriodItem = {
-  id: string;
-  timestamp: number[];
-  description: string;
-  color: string;
-};
-
-interface DatesState {
-  dateOfBirth: number | null;
-  events: DateItem[];
-  periods: PeriodItem[];
-}
+import type { DateItem, DatesState, PeriodItem } from "../utils/types";
 
 const initialState: DatesState = {
   dateOfBirth: null,

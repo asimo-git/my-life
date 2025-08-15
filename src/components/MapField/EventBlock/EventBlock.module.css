@@ -1,0 +1,32 @@
+.timelineItem {
+  width: 100%;
+}
+
+.timelinePoint {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 50%;
+  margin-left: -7px;
+  margin-top: -7px;
+  border-radius: 50%;
+  border: solid 1px black;
+  z-index: 10;
+  background-color: var(--accent-color);
+}
+
+.timelineContent {
+  position: absolute;
+  right: calc(50% - 30px);
+  width: 40%;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%) translateY(-50%);
+}
+
+.leaderLine {
+  position: absolute;
+  left: 50%;
+  width: 30px;
+}

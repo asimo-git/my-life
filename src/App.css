@@ -1,15 +1,18 @@
 .layout {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 .sidebar {
-  height: 100vh;
+  height: 100%;
   position: relative;
   min-width: var(--sidebar-width);
   margin-left: 0;
+  overflow-y: auto;
   background: var(--accent-color);
   transition: 0.3s linear;
+  min-height: 0;
 }
 
 .collapse-button {
