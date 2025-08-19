@@ -1,12 +1,5 @@
 export type DateItem = {
   id: string;
-  timestamp: number;
-  description: string;
-  color: string;
-};
-
-export type PeriodItem = {
-  id: string;
   timestamp: number[];
   description: string;
   color: string;
@@ -15,7 +8,7 @@ export type PeriodItem = {
 export interface DatesState {
   dateOfBirth: number | null;
   events: DateItem[];
-  periods: PeriodItem[];
+  periods: DateItem[];
 }
 
 export interface EventPosition {

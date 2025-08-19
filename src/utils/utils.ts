@@ -1,4 +1,4 @@
-import type { DateItem, PeriodItem } from "./types";
+import type { DateItem } from "./types";
 
 export function getDayTimestamp(date: Date): number {
   return new Date(
@@ -32,7 +32,7 @@ export function calculateEventPositions(
   contentHeight: number
 ) {
   const pointPositions = events.map(
-    (item) => ((item.timestamp - dateOfBirth) / lifeSpan) * timelineHeight
+    (item) => ((item.timestamp[0] - dateOfBirth) / lifeSpan) * timelineHeight
   );
 
   const initialEventPositions = pointPositions.map((pos) => ({
@@ -44,7 +44,7 @@ export function calculateEventPositions(
 }
 
 export function calculatePeriodPositions(
-  periods: PeriodItem[],
+  periods: DateItem[],
   dateOfBirth: number,
   lifeSpan: number,
   timelineHeight: number

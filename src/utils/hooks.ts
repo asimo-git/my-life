@@ -1,16 +1,28 @@
 import { useState, useLayoutEffect, useMemo, useRef } from "react";
 import { calculateEventPositions, calculatePeriodPositions } from "./utils";
-import type { DateItem, PeriodItem } from "./types";
+import type { DateItem } from "./types";
 
 export function useTimeline(
   dateOfBirth: number | null,
   events: DateItem[],
-  periods: PeriodItem[],
+  periods: DateItem[],
   contentHeight: number
 ) {
   const [timelineLength, setTimelineLength] = useState<string>("0");
-  const [eventPositions, setEventPositions] = useState<any[]>([]);
-  const [periodPositions, setPeriodPositions] = useState<any[]>([]);
+  const [eventPositions, setEventPositions] = useState<
+    {
+      pointPos: number;
+      descPos: number;
+    }[]
+  >([]);
+  const [periodPositions, setPeriodPositions] = useState<
+    {
+      shiftDescription: boolean;
+      startPos: number;
+      endPos: number;
+      widthOffset: number;
+    }[]
+  >([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
 

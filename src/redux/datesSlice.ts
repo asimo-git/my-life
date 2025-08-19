@@ -1,6 +1,19 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { DateItem, DatesState, PeriodItem } from "../utils/types";
+import type { DateItem, DatesState } from "../utils/types";
+
+const addItemToArray = (array: DateItem[], item: DateItem) => {
+  array.push(item);
+  array.sort((a, b) => a.timestamp[0] - b.timestamp[0]);
+};
+
+const updateItemInArray = (array: DateItem[], updatedItem: DateItem) => {
+  const index = array.findIndex((item) => item.id === updatedItem.id);
+  if (index !== -1) {
+    array[index] = updatedItem;
+    array.sort((a, b) => a.timestamp[0] - b.timestamp[0]);
+  }
+};
 
 const initialState: DatesState = {
   dateOfBirth: null,
@@ -16,46 +29,16 @@ const datesSlice = createSlice({
       state.dateOfBirth = action.payload;
     },
     addItem(state, action: PayloadAction<DateItem>) {
-      state.events.push(action.payload);
-      state.events.sort((a, b) => a.timestamp - b.timestamp);
-    },
-    addPeriod(state, action: PayloadAction<PeriodItem>) {
-      state.periods.push(action.payload);
-      state.periods.sort((a, b) => a.timestamp[0] - b.timestamp[0]);
-    },
-    updateItem(
-      state,
-      action: PayloadAction<{
-        id: string;
-        timestamp: number;
-        description: string;
-        color: string;
-      }>
-    ) {
-      const index = state.events.findIndex(
-        (item) => item.id === action.payload.id
+      addItemToArray(
+        action.payload.timestamp[1] ? state.periods : state.events,
+        action.payload
       );
-      if (index !== -1) {
-        state.events[index] = action.payload;
-        state.events.sort((a, b) => a.timestamp - b.timestamp);
-      }
     },
-    updatePeriod(
-      state,
-      action: PayloadAction<{
-        id: string;
-        timestamp: number[];
-        description: string;
-        color: string;
-      }>
-    ) {
-      const index = state.periods.findIndex(
-        (item) => item.id === action.payload.id
+    updateItem(state, action: PayloadAction<DateItem>) {
+      updateItemInArray(
+        action.payload.timestamp[1] ? state.periods : state.events,
+        action.payload
       );
-      if (index !== -1) {
-        state.periods[index] = action.payload;
-        state.periods.sort((a, b) => a.timestamp[0] - b.timestamp[0]);
-      }
     },
     deleteItem(
       state,
@@ -76,12 +59,6 @@ const datesSlice = createSlice({
   },
 });
 
-export const {
-  updateDateOfBirth,
-  addItem,
-  updateItem,
-  updatePeriod,
-  deleteItem,
-  addPeriod,
-} = datesSlice.actions;
+export const { updateDateOfBirth, addItem, updateItem, deleteItem } =
+  datesSlice.actions;
 export default datesSlice.reducer;

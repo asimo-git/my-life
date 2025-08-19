@@ -3,11 +3,7 @@ import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
 import { getDayTimestamp } from "../../../utils/utils";
 import { useEffect, useState } from "react";
-import {
-  deleteItem,
-  updateItem,
-  updatePeriod,
-} from "../../../redux/datesSlice";
+import { deleteItem, updateItem } from "../../../redux/datesSlice";
 import styles from "./DateLine.module.css";
 
 export default function DateLine({
@@ -18,7 +14,7 @@ export default function DateLine({
   mode,
 }: {
   id: string;
-  initialTimestamp: number | number[];
+  initialTimestamp: number[];
   initialDescription: string;
   initialColor: string;
   mode: "range" | "date";
@@ -30,11 +26,7 @@ export default function DateLine({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (mode === "range" && Array.isArray(date)) {
-      dispatch(updatePeriod({ id, timestamp: date, description, color }));
-    } else if (typeof date === "number") {
-      dispatch(updateItem({ id, timestamp: date, description, color }));
-    }
+    dispatch(updateItem({ id, timestamp: date, description, color }));
   }, [date, description, color]);
 
   return (
@@ -48,21 +40,22 @@ export default function DateLine({
       </button>
 
       <Flatpickr
-        options={mode === "range" ? { mode: "range" } : undefined}
-        className={mode === "range" ? styles.rangeInput : ""}
-        value={
-          typeof date === "number"
-            ? new Date(date)
-            : date.map((item) => new Date(item))
-        }
+        value={new Date(date[0])}
         onChange={(dates) =>
-          setDate(
-            dates.length === 2
-              ? dates.map((item) => getDayTimestamp(item))
-              : getDayTimestamp(dates[0])
-          )
+          typeof date === "number"
+            ? setDate([getDayTimestamp(dates[0])])
+            : setDate((prevDate) => [getDayTimestamp(dates[0]), prevDate[1]])
         }
       />
+
+      {mode === "range" && (
+        <Flatpickr
+          value={new Date(date[1])}
+          onChange={(dates) =>
+            setDate((prevDate) => [prevDate[0], getDayTimestamp(dates[0])])
+          }
+        />
+      )}
 
       <input
         type="color"
