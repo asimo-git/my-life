@@ -46,6 +46,9 @@ export default function DateLine({
             ? setDate([getDayTimestamp(dates[0])])
             : setDate((prevDate) => [getDayTimestamp(dates[0]), prevDate[1]])
         }
+        options={{
+          dateFormat: "d.m.Y",
+        }}
       />
 
       {mode === "range" && (
@@ -54,6 +57,9 @@ export default function DateLine({
           onChange={(dates) =>
             setDate((prevDate) => [prevDate[0], getDayTimestamp(dates[0])])
           }
+          options={{
+            dateFormat: "d.m.Y",
+          }}
         />
       )}
 

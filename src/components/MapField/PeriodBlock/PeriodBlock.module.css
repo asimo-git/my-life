@@ -1,8 +1,7 @@
 .periodBlock {
   position: absolute;
   right: 50%;
-  width: 40%;
-  z-index: -1;
+  padding-right: 15vw;
 }
 
 .timelinePeriod {
@@ -10,7 +9,25 @@
   height: 100%;
   right: 0;
   top: 0;
-  z-index: -10;
   border-radius: 20px 0 0 20px;
   border: 1px solid black;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 50%;
+  right: 110%;
+  background: var(--light-accent-color);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease-in-out;
+  z-index: 20;
+}
+
+.timelinePeriod:hover .tooltip {
+  opacity: 1;
 }

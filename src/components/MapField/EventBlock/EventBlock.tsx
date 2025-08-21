@@ -16,7 +16,15 @@ export default function EventBlock({
           top: `${position.pointPos}px`,
           backgroundColor: item.color,
         }}
-      ></div>
+      >
+        <div className={styles.tooltip}>
+          {new Date(item.timestamp[0]).toLocaleDateString("ru-RU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
+        </div>
+      </div>
 
       <svg
         className={styles.leaderLine}
@@ -29,7 +37,7 @@ export default function EventBlock({
           y1="0"
           x2="30"
           y2={`${position.descPos - position.pointPos}`}
-          stroke="#333"
+          stroke={`${item.color}`}
           strokeWidth="1"
         />
       </svg>
@@ -38,6 +46,7 @@ export default function EventBlock({
         className={styles.timelineContent}
         style={{
           top: `${position.descPos}px`,
+          border: `solid 2px ${item.color}`,
         }}
       >
         {item.description}

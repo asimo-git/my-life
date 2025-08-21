@@ -20,6 +20,9 @@ export default function BirthdayCard() {
         onChange={([date]) =>
           dispatch(updateDateOfBirth(getDayTimestamp(date)))
         }
+        options={{
+          dateFormat: "d.m.Y",
+        }}
       />
     </div>
   );

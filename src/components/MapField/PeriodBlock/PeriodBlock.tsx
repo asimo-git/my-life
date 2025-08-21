@@ -1,11 +1,11 @@
-import type { PeriodItem, PeriodPosition } from "../../../utils/types";
+import type { DateItem, PeriodPosition } from "../../../utils/types";
 import styles from "./PeriodBlock.module.css";
 
 export default function PeriodBlock({
   item,
   position,
 }: {
-  item: PeriodItem;
+  item: DateItem;
   position: PeriodPosition;
 }) {
   return (
@@ -32,7 +32,19 @@ export default function PeriodBlock({
           backgroundColor: `${item.color}B3`,
           width: `${30 + (position.widthOffset || 0)}px`,
         }}
-      ></div>
+      >
+        <div className={styles.tooltip}>
+          {`${new Date(item.timestamp[0]).toLocaleDateString("ru-RU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })} - ${new Date(item.timestamp[1]).toLocaleDateString("ru-RU", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}`}
+        </div>
+      </div>
     </div>
   );
 }
