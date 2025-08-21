@@ -8,6 +8,8 @@ export default function EventBlock({
   item: DateItem;
   position: EventPosition;
 }) {
+  // if (!item.description) return null;
+
   return (
     <div className={styles.timelineItem} key={item.id}>
       <div
@@ -26,31 +28,35 @@ export default function EventBlock({
         </div>
       </div>
 
-      <svg
-        className={styles.leaderLine}
-        style={{
-          top: `${position.pointPos}px`,
-        }}
-      >
-        <line
-          x1="0"
-          y1="0"
-          x2="30"
-          y2={`${position.descPos - position.pointPos}`}
-          stroke={`${item.color}`}
-          strokeWidth="1"
-        />
-      </svg>
+      {item.description && (
+        <>
+          <svg
+            className={styles.leaderLine}
+            style={{
+              top: `${position.pointPos}px`,
+            }}
+          >
+            <line
+              x1="0"
+              y1="0"
+              x2="30"
+              y2={`${position.descPos - position.pointPos}`}
+              stroke={`${item.color}`}
+              strokeWidth="1"
+            />
+          </svg>
 
-      <div
-        className={styles.timelineContent}
-        style={{
-          top: `${position.descPos}px`,
-          border: `solid 2px ${item.color}`,
-        }}
-      >
-        {item.description}
-      </div>
+          <div
+            className={styles.timelineContent}
+            style={{
+              top: `${position.descPos}px`,
+              border: `solid 2px ${item.color}`,
+            }}
+          >
+            {item.description}
+          </div>
+        </>
+      )}
     </div>
   );
 }

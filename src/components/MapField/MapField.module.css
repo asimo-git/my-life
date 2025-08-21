@@ -49,6 +49,7 @@
   width: 25px;
   height: 25px;
   margin: 0 auto;
+  z-index: 20;
 }
 
 .hereIcon {

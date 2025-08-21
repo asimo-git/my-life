@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
 import { getDayTimestamp } from "../../../utils/utils";
 import { useEffect, useState } from "react";
 import { deleteItem, updateItem } from "../../../redux/datesSlice";
 import styles from "./DateLine.module.css";
+import type { RootState } from "../../../redux/store";
 
 export default function DateLine({
   id,
@@ -22,6 +23,9 @@ export default function DateLine({
   const [date, setDate] = useState(initialTimestamp);
   const [description, setDescription] = useState(initialDescription);
   const [color, setColor] = useState(initialColor);
+  const dateOfBirth = useSelector(
+    (state: RootState) => state.dates.dateOfBirth
+  );
 
   const dispatch = useDispatch();
 
@@ -48,6 +52,8 @@ export default function DateLine({
         }
         options={{
           dateFormat: "d.m.Y",
+          minDate: new Date(dateOfBirth ?? "1000-01-01T00:00:00Z"),
+          maxDate: new Date(),
         }}
       />
 
@@ -59,6 +65,8 @@ export default function DateLine({
           }
           options={{
             dateFormat: "d.m.Y",
+            minDate: new Date(date[0]),
+            maxDate: new Date(),
           }}
         />
       )}

@@ -58,20 +58,28 @@ export function calculatePeriodPositions(
     };
   });
 
-  let active: typeof positions = [];
-  for (const current of positions) {
-    active = active.filter((p) => p.endPos > current.startPos);
-    active.push(current);
-    active.forEach((p, i) => {
-      p.widthOffset = i * 10;
-    });
+  for (let i = 0; i < positions.length; i++) {
+    const current = positions[i];
+
+    let usedLevels = new Set<number>();
+    for (let j = 0; j < i; j++) {
+      const prev = positions[j];
+      const overlap = prev.endPos > current.startPos;
+      if (overlap) {
+        usedLevels.add(prev.widthOffset / 10);
+      }
+    }
+
+    let level = 0;
+    while (usedLevels.has(level)) {
+      level++;
+    }
+    current.widthOffset = level * 10;
   }
 
   const positionsWithShift = positions.map((pos, i, arr) => {
-    let shiftDescription = false;
-    if (i < arr.length - 1 && arr[i + 1].startPos - pos.startPos < 30) {
-      shiftDescription = true;
-    }
+    let shiftDescription =
+      i < arr.length - 1 && arr[i + 1].startPos - pos.startPos < 30;
     return { ...pos, shiftDescription };
   });
 
