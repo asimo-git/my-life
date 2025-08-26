@@ -9,7 +9,7 @@
   position: relative;
   min-width: var(--sidebar-width);
   margin-left: 0;
-  overflow-y: auto;
+  overflow: hidden;
   background: var(--accent-color);
   transition: 0.3s linear;
   min-height: 0;
@@ -20,14 +20,15 @@
   bottom: 0;
   left: 0;
   width: var(--sidebar-width);
-  height: 7vh;
+  height: 7dvh;
   border: none;
   background-color: var(--light-accent-color);
   transition: 0.3s linear;
   text-align: right;
 }
 
-.closed {
+.closedSidebar .sidebar,
+.closedSidebar .collapse-button {
   margin-left: calc(var(--sidebar-width) * -1 + 8vw);
 }
 
@@ -36,8 +37,57 @@
   transition: transform 0.3s linear;
 }
 
-.closed .chevron {
+.closedSidebar .chevron {
   transform: rotate(0.5turn);
+}
+
+.main {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+@media (max-width: 740px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 93vh;
+    flex-shrink: 0;
+  }
+
+  .collapse-button {
+    position: static;
+    width: 100%;
+    text-align: center;
+  }
+
+  .closedSidebar .sidebar {
+    margin-top: -93vh;
+    margin-left: 0;
+  }
+
+  .closedSidebar .collapse-button {
+    margin-left: 0;
+  }
+
+  .main {
+    display: none;
+  }
+
+  .closedSidebar .main {
+    display: block;
+  }
+
+  .chevron {
+    transform: rotate(0.25turn);
+  }
+
+  .closedSidebar .chevron {
+    transform: rotate(0.75turn);
+  }
 }
 
 @media (max-width: 1200px) {

@@ -1,12 +1,12 @@
 .data-panel {
-  padding: 24px;
+  padding: 24px 24px 0;
+  height: 93dvh;
   background: var(--accent-color);
-  width: var(--sidebar-width);
+  overflow-y: auto;
 }
 
 .card {
   margin-bottom: 2vh;
-  padding: 2vh 0;
 }
 
 .subtitle {

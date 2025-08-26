@@ -1,14 +1,14 @@
-import { useState, useLayoutEffect, useMemo, useRef } from "react";
+import { useState, useLayoutEffect, useMemo, useRef, useEffect } from "react";
 import { calculateEventPositions, calculatePeriodPositions } from "./utils";
 import type { DateItem } from "./types";
+import { CONTENT_HEIGHT_PX } from "./constants";
 
 export function useTimeline(
   dateOfBirth: number | null,
   events: DateItem[],
-  periods: DateItem[],
-  contentHeight: number
+  periods: DateItem[]
 ) {
-  const [timelineLength, setTimelineLength] = useState<string>("0");
+  const [timelineLength, setTimelineLength] = useState<number>(0);
   const [eventPositions, setEventPositions] = useState<
     {
       pointPos: number;
@@ -25,45 +25,44 @@ export function useTimeline(
   >([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!dateOfBirth || !containerRef.current) return;
+
+    const basicLength = events.length * CONTENT_HEIGHT_PX;
+    const length =
+      basicLength < window.screen.height
+        ? window.screen.height * 0.7
+        : basicLength;
+    setTimelineLength(length);
+  }, [dateOfBirth, events]);
 
   const calculatedPositions = useMemo(() => {
     if (!dateOfBirth || !containerRef.current) return null;
-
-    const timelineHeightPx = containerRef.current.clientHeight;
     const lifeSpan = Date.now() - dateOfBirth;
 
     const calculatedEventPositions = calculateEventPositions(
       events,
       dateOfBirth,
       lifeSpan,
-      timelineHeightPx,
-      contentHeight
+      timelineLength
     );
 
     const calculatedPeriodPositions = calculatePeriodPositions(
       periods,
       dateOfBirth,
       lifeSpan,
-      timelineHeightPx
+      timelineLength
     );
 
     return {
       eventPositions: calculatedEventPositions,
       periodPositions: calculatedPeriodPositions,
     };
-  }, [dateOfBirth, events, periods, timelineLength, contentHeight]);
-
-  useLayoutEffect(() => {
-    if (!dateOfBirth || !containerRef.current) return;
-
-    const basicLength = events.length * contentHeight;
-    const length =
-      basicLength < window.screen.height ? "80%" : `${basicLength}px`;
-    setTimelineLength(length);
-  }, [dateOfBirth, events, contentHeight]);
+  }, [dateOfBirth, events, periods, timelineLength]);
 
   useLayoutEffect(() => {
     if (calculatedPositions) {
+      console.log(calculatedPositions);
       setEventPositions(calculatedPositions.eventPositions);
       setPeriodPositions(calculatedPositions.periodPositions);
     }

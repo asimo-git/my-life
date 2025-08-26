@@ -1,3 +1,4 @@
+import { CONTENT_HEIGHT_PX } from "./constants";
 import type { DateItem } from "./types";
 
 export function getDayTimestamp(date: Date): number {
@@ -9,16 +10,15 @@ export function getDayTimestamp(date: Date): number {
 }
 
 export function adjustDescriptions(
-  positions: { pointPos: number; descPos: number }[],
-  blockHeight: number
+  positions: { pointPos: number; descPos: number }[]
 ) {
   const adjusted = [...positions];
   for (let i = 1; i < adjusted.length; i++) {
     const prev = adjusted[i - 1];
     const curr = adjusted[i];
 
-    if (curr.descPos < prev.descPos + blockHeight) {
-      curr.descPos = prev.descPos + blockHeight;
+    if (curr.descPos < prev.descPos + CONTENT_HEIGHT_PX) {
+      curr.descPos = prev.descPos + CONTENT_HEIGHT_PX;
     }
   }
   return adjusted;
@@ -28,8 +28,7 @@ export function calculateEventPositions(
   events: DateItem[],
   dateOfBirth: number,
   lifeSpan: number,
-  timelineHeight: number,
-  contentHeight: number
+  timelineHeight: number
 ) {
   const pointPositions = events.map(
     (item) => ((item.timestamp[0] - dateOfBirth) / lifeSpan) * timelineHeight
@@ -40,7 +39,7 @@ export function calculateEventPositions(
     descPos: pos,
   }));
 
-  return adjustDescriptions(initialEventPositions, contentHeight);
+  return adjustDescriptions(initialEventPositions);
 }
 
 export function calculatePeriodPositions(
