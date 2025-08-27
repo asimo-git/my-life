@@ -27,6 +27,10 @@
   text-align: right;
 }
 
+.collapse-button:disabled {
+  cursor: default;
+}
+
 .closedSidebar .sidebar,
 .closedSidebar .collapse-button {
   margin-left: calc(var(--sidebar-width) * -1 + 8vw);

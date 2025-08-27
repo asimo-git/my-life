@@ -26,8 +26,9 @@ function App() {
           onClick={() => {
             setCollapsed((prev) => !prev);
           }}
+          disabled={!dateOfBirth}
         >
-          <Chevron className="chevron" />
+          {dateOfBirth && <Chevron className="chevron" />}
         </button>
         <div className="main">
           {dateOfBirth ? <MapField /> : <WelcomeBlock />}

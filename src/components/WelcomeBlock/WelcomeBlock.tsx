@@ -9,26 +9,45 @@ import { getDayTimestamp } from "../../utils/utils";
 
 export default function WelcomeBlock() {
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
+  const [isExiting, setIsExiting] = useState(false);
   const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    if (!dateOfBirth) return;
+
+    setIsExiting(true);
+
+    setTimeout(() => {
+      dispatch(updateDateOfBirth(getDayTimestamp(dateOfBirth)));
+    }, 1000);
+  };
 
   return (
     <>
-      <div className={styles.welcomeBlock}>
-        <h1 className={styles.title}>My Life</h1>
+      <div
+        className={`${styles.welcomeBlock} ${isExiting ? styles.exiting : ""}`}
+      >
+        <h1 className={styles.title}>Карта жизни</h1>
+        <h2 className={styles.subtitle}>
+          Позволит вам схематично и наглядно отобразить на едином отрезке
+          главные события и периоды вашей жизни.
+        </h2>
+        <h2 className={styles.subtitle}>Для начала...</h2>
         <div className={styles.datepickerWrapper}>
           <Flatpickr
             className={styles.flatpickrInput}
             value={dateOfBirth ? new Date(dateOfBirth) : []}
             onChange={([date]) => setDateOfBirth(date)}
-            placeholder="Введите дату рождения"
+            placeholder="Выберите дату рождения"
+            options={{
+              dateFormat: "d.m.Y",
+              defaultDate: new Date(1990, 0),
+            }}
           />
           <button
             className={`icon-button ${styles.button}`}
             disabled={!dateOfBirth}
-            onClick={() =>
-              dateOfBirth &&
-              dispatch(updateDateOfBirth(getDayTimestamp(dateOfBirth)))
-            }
+            onClick={handleSubmit}
           >
             <Check />
           </button>
