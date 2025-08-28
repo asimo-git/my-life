@@ -1,0 +1,5 @@
+.dataPanel {
+  padding: 0 2vh;
+  height: 93dvh;
+  overflow-y: auto;
+}

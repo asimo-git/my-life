@@ -8,11 +8,17 @@
   height: 100%;
   position: relative;
   min-width: var(--sidebar-width);
+  width: var(--sidebar-width);
   margin-left: 0;
   overflow: hidden;
-  background: var(--accent-color);
+  background: linear-gradient(
+    135deg,
+    var(--pale-gradient-color),
+    var(--light-gradient-color)
+  );
   transition: 0.3s linear;
   min-height: 0;
+  box-shadow: var(--shadow);
 }
 
 .collapse-button {
@@ -21,14 +27,17 @@
   left: 0;
   width: var(--sidebar-width);
   height: 7dvh;
-  border: none;
-  background-color: var(--light-accent-color);
+  border-top: 1px solid var(--light-accent-color);
+  border-radius: 0;
+  background: var(--pale-gradient-color);
+
   transition: 0.3s linear;
   text-align: right;
 }
 
-.collapse-button:disabled {
-  cursor: default;
+.collapse-button:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .closedSidebar .sidebar,
@@ -39,6 +48,7 @@
 .chevron {
   transform: rotate(0turn);
   transition: transform 0.3s linear;
+  stroke: var(--light-accent-color);
 }
 
 .closedSidebar .chevron {

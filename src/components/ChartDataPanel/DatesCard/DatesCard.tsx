@@ -24,7 +24,7 @@ export default function DatesCard() {
         ))}
       </div>
       <button
-        className="icon-button light-button"
+        className="main-button"
         onClick={() => dispatch(addNewItemThunk())}
       >
         Добавить

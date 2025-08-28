@@ -3,12 +3,16 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --main-color: #2a4b37;
-  --accent-color: #1e3b2a;
-  --text-color: #dccdb8;
-  --light-accent-color: #45a049;
+  --main-color: #fefcf7;
+  --accent-color: #3e7b36;
+  --text-color: #2d5a27;
+  --light-accent-color: #52a845;
+  --pale-gradient-color: #e8f5e3;
+  --light-gradient-color: #f5f7f4;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   --sidebar-width: 40vw;
-  --font-serif: "EB Garamond", serif;
+  --font-serif: "Playfair Display", serif;
+  --border-radius: 4px;
 
   color: var(--text-color);
   background-color: var(--main-color);
@@ -44,7 +48,7 @@ h1 {
 }
 
 h2 {
-  margin: 0;
+  margin: 0 0 2vh;
 }
 
 h1,
@@ -53,38 +57,41 @@ h3 {
   font-family: var(--font-serif);
 }
 
+input {
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--light-accent-color);
+}
+
+input,
+button {
+  height: 30px;
+  width: 90px;
+  padding: 0 10px;
+}
+
 button {
   cursor: pointer;
-}
-
-.icon-button {
-  height: 30px;
-  padding: 0 10px;
-  background-color: var(--accent-color);
-  color: white;
+  border-radius: var(--border-radius);
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  background: linear-gradient(
+    135deg,
+    var(--light-accent-color),
+    var(--accent-color)
+  );
+  color: var(--main-color);
 }
 
-.icon-button:hover {
-  background-color: var(--text-color);
-}
-
-.icon-button:disabled {
+button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.light-button {
-  background-color: var(--main-color);
-  color: var(--text-color);
-}
-
-.light-button:hover {
-  background-color: var(--light-accent-color);
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .flatpickr-day.selected,
@@ -92,4 +99,12 @@ button {
 .flatpickr-day.endRange {
   background-color: var(--accent-color) !important;
   border: none !important;
+}
+
+.card {
+  margin: 2vh 0;
+  padding: 2vh;
+  background: var(--main-color);
+  border-radius: 12px;
+  border-left: 4px solid var(--light-accent-color);
 }

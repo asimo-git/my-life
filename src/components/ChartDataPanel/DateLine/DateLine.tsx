@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { deleteItem, updateItem } from "../../../redux/datesSlice";
 import styles from "./DateLine.module.css";
 import type { RootState } from "../../../redux/store";
+import X from "../../../assets/icons/x.svg?react";
 
 export default function DateLine({
   id,
@@ -40,7 +41,7 @@ export default function DateLine({
         onClick={() => dispatch(deleteItem({ id, mode }))}
         title="Удалить"
       >
-        ❌
+        <X />
       </button>
 
       <Flatpickr

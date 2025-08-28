@@ -38,8 +38,6 @@
   padding-left: 10px;
   height: 40px;
   font-size: 16px;
-  border-radius: 4px;
-  border: none;
 }
 
 .button {
@@ -47,6 +45,18 @@
   right: 0.5vw;
   top: 50%;
   height: 30px;
+  transform: translateY(-50%);
+  height: 30px;
+  width: 40px;
+  padding: 0 10px;
+  background-color: var(--accent-color);
+  color: var(--main-color);
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--text-color);
   transform: translateY(-50%);
 }
 

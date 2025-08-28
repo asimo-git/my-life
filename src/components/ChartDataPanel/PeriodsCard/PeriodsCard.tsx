@@ -33,7 +33,7 @@ export default function PeriodsCard() {
         ))}
       </div>
       <button
-        className="icon-button light-button"
+        className="main-button"
         onClick={() => dispatch(addNewPeriodThunk())}
       >
         Добавить
