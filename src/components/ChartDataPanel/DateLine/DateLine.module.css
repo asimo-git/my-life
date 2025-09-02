@@ -6,7 +6,6 @@
 }
 
 .description {
-  resize: none;
   background: transparent;
   overflow: hidden;
   height: 1.5em;
@@ -16,12 +15,11 @@
   border: none;
   border-bottom: 1px solid var(--text-color);
   padding: 0 5px;
-  hyphens: auto;
   color: var(--text-color);
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
   font: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 0;
 }
 
 .description:focus {

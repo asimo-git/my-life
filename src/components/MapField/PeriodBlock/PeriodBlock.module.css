@@ -2,6 +2,11 @@
   position: absolute;
   right: 50%;
   padding-right: 15vw;
+  width: 45%;
+}
+
+.periodDescription {
+  word-break: break-word;
 }
 
 .timelinePeriod {

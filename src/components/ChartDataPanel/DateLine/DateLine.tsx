@@ -81,17 +81,16 @@ export default function DateLine({
         onChange={(e) => setColor(e.target.value)}
         title="Выбрать цвет"
       />
-
-      <textarea
+      <input
         className={styles.description}
         placeholder="добавьте описание"
-        rows={1}
-        onFocus={(e) => {
-          e.target.style.height = e.target.scrollHeight + "px";
-        }}
         onBlur={(e) => {
-          e.target.style.height = "1.5em";
           setDescription(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.currentTarget.blur();
+          }
         }}
         defaultValue={description}
       />

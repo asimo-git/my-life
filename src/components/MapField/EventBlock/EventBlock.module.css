@@ -18,12 +18,13 @@
 .timelineContent {
   position: absolute;
   right: calc(50% - 30px);
-  width: fit-content;
+  max-width: 40%;
   padding: 5px 10px;
   border-radius: 8px;
   box-shadow: var(--shadow);
   transform: translateX(100%) translateY(-50%);
   background-color: var(--pale-gradient-color);
+  word-break: break-word;
 }
 
 .leaderLine {
