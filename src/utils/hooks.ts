@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect, useMemo, useRef, useEffect } from "react";
 import { calculateEventPositions, calculatePeriodPositions } from "./utils";
-import type { DateItem } from "./types";
+import type { DateItem, EventPosition } from "./types";
 import { CONTENT_HEIGHT_PX } from "./constants";
 
 export function useTimeline(
@@ -9,12 +9,10 @@ export function useTimeline(
   periods: DateItem[]
 ) {
   const [timelineLength, setTimelineLength] = useState<number>(0);
-  const [eventPositions, setEventPositions] = useState<
-    {
-      pointPos: number;
-      descPos: number;
-    }[]
-  >([]);
+  const [eventPositions, setEventPositions] = useState<EventPosition>({
+    singles: [],
+    clusters: [],
+  });
   const [periodPositions, setPeriodPositions] = useState<
     {
       shiftDescription: boolean;
@@ -25,6 +23,7 @@ export function useTimeline(
   >([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!dateOfBirth || !containerRef.current) return;
 
@@ -62,7 +61,6 @@ export function useTimeline(
 
   useLayoutEffect(() => {
     if (calculatedPositions) {
-      console.log(calculatedPositions);
       setEventPositions(calculatedPositions.eventPositions);
       setPeriodPositions(calculatedPositions.periodPositions);
     }

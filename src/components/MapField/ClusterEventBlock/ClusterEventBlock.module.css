@@ -1,0 +1,47 @@
+.timelineItem {
+  width: 100%;
+}
+
+.timelinePoint {
+  width: calc(var(--point-size) * 1.5);
+  height: calc(var(--point-size) * 1.5);
+  position: absolute;
+  left: 50%;
+  margin-left: calc(var(--point-size) * -1.5 / 2);
+  margin-top: calc(var(--point-size) * -1.5 / 2);
+  border-radius: 50%;
+  border: solid 1px black;
+  z-index: 20;
+  background-color: var(--pale-gradient-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eventDescription {
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.eventDescription:last-child {
+  border-bottom: none;
+}
+
+.clusterContent {
+  position: absolute;
+  right: calc(50% - 30px);
+  max-width: 40%;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  transform: translateX(100%) translateY(-50%);
+  background-color: var(--pale-gradient-color);
+  word-break: break-word;
+  border: solid 2px var(--accent-color);
+  z-index: 30;
+}
+
+.leaderLine {
+  position: absolute;
+  left: 50%;
+  width: 30px;
+}

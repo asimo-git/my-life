@@ -6,6 +6,7 @@ import PeriodBlock from "./PeriodBlock/PeriodBlock";
 import Flag from "../../assets/icons/flag.svg?react";
 import HerePoint from "../../assets/icons/here.svg?react";
 import { useTimeline } from "../../utils/hooks";
+import ClusterEventBlock from "./ClusterEventBlock/ClusterEventBlock";
 
 export default function MapField() {
   const dateOfBirth = useSelector(
@@ -29,15 +30,20 @@ export default function MapField() {
         className={styles.mapContainer}
         style={{ height: timelineLength }}
       >
-        {events.map((item, index) =>
-          eventPositions[index] ? (
-            <EventBlock
-              key={item.id}
-              item={item}
-              position={eventPositions[index]}
-            />
-          ) : null
-        )}
+        {eventPositions.singles.map((item) => (
+          <EventBlock
+            key={item.event.id}
+            item={item.event}
+            position={item.position}
+          />
+        ))}
+        {eventPositions.clusters.map((item) => (
+          <ClusterEventBlock
+            key={item.events[0].id}
+            items={item.events}
+            position={item.position}
+          />
+        ))}
 
         {periods.map((item, index) =>
           periodPositions[index] ? (

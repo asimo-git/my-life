@@ -13,6 +13,7 @@
   --sidebar-width: 40vw;
   --font-serif: "Playfair Display", serif;
   --border-radius: 4px;
+  --point-size: 14px;
 
   color: var(--text-color);
   background-color: var(--main-color);

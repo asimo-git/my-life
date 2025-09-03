@@ -1,4 +1,4 @@
-import type { DateItem, EventPosition } from "../../../utils/types";
+import type { DateItem } from "../../../utils/types";
 import styles from "./EventBlock.module.css";
 
 export default function EventBlock({
@@ -6,16 +6,16 @@ export default function EventBlock({
   position,
 }: {
   item: DateItem;
-  position: EventPosition;
+  position: number;
 }) {
   // if (!item.description) return null;
 
   return (
-    <div className={styles.timelineItem} key={item.id}>
+    <div className={styles.timelineItem}>
       <div
         className={styles.timelinePoint}
         style={{
-          top: `${position.pointPos}px`,
+          top: `${position}px`,
           backgroundColor: item.color,
         }}
       >
@@ -33,23 +33,23 @@ export default function EventBlock({
           <svg
             className={styles.leaderLine}
             style={{
-              top: `${position.pointPos}px`,
+              top: `${position}px`,
             }}
           >
             <line
               x1="0"
               y1="0"
               x2="30"
-              y2={`${position.descPos - position.pointPos}`}
+              y2="0"
               stroke={`${item.color}`}
-              strokeWidth="1"
+              strokeWidth="3"
             />
           </svg>
 
           <div
             className={styles.timelineContent}
             style={{
-              top: `${position.descPos}px`,
+              top: `${position}px`,
               border: `solid 2px ${item.color}`,
             }}
           >

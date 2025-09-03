@@ -12,8 +12,8 @@ export interface DatesState {
 }
 
 export interface EventPosition {
-  pointPos: number;
-  descPos: number;
+  singles: { position: number; event: DateItem }[];
+  clusters: { position: number; events: DateItem[] }[];
 }
 
 export interface PeriodPosition {
