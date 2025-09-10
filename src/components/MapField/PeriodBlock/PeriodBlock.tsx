@@ -14,17 +14,34 @@ export default function PeriodBlock({
       style={{
         top: `${position.startPos}px`,
         height: `${position.endPos - position.startPos}px`,
-        borderTop: `2px solid ${item.color}B3`,
+        paddingRight: `${30 + position.widthOffset}px`,
       }}
     >
       <div
-        className={styles.periodDescription}
+        className={`${styles.periodDescription} description`}
         style={{
-          marginTop: position.shiftDescription ? "-25px" : undefined,
+          top: `${position.labelTop}px`,
+          borderTop: `2px solid ${item.color}B3`,
         }}
       >
         {item.description}
       </div>
+
+      {position.labelTop + position.startPos > position.endPos ? (
+        <div
+          className={styles.connector}
+          style={{
+            width: "5px",
+            borderLeft: `2px solid ${item.color}`,
+            right: `${25 + position.widthOffset}px`,
+            top: `50%`,
+            bottom: `${
+              position.endPos - position.startPos - position.labelTop - 1.5
+            }px`,
+          }}
+        ></div>
+      ) : null}
+
       <div
         className={styles.timelinePeriod}
         key={item.id}

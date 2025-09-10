@@ -83,6 +83,7 @@ export default function DateLine({
       />
       <input
         className={styles.description}
+        maxLength={60}
         placeholder="добавьте описание"
         onBlur={(e) => {
           setDescription(e.target.value);

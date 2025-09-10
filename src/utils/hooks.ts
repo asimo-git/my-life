@@ -1,75 +1,132 @@
-import { useState, useLayoutEffect, useMemo, useRef, useEffect } from "react";
+import {
+  useState,
+  useLayoutEffect,
+  useMemo,
+  useEffect,
+  useCallback,
+  type RefObject,
+} from "react";
 import { calculateEventPositions, calculatePeriodPositions } from "./utils";
-import type { DateItem, EventPosition } from "./types";
+import type { DateItem, EventPosition, PeriodPosition } from "./types";
 import { CONTENT_HEIGHT_PX } from "./constants";
 
-export function useTimeline(
+export function useTimelineLength(
   dateOfBirth: number | null,
-  events: DateItem[],
-  periods: DateItem[]
+  events: DateItem[]
 ) {
-  const [timelineLength, setTimelineLength] = useState<number>(0);
-  const [eventPositions, setEventPositions] = useState<EventPosition>({
-    singles: [],
-    clusters: [],
-  });
-  const [periodPositions, setPeriodPositions] = useState<
-    {
-      shiftDescription: boolean;
-      startPos: number;
-      endPos: number;
-      widthOffset: number;
-    }[]
-  >([]);
+  const [timelineLength, setTimelineLength] = useState(0);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const lifeSpan = useMemo(() => {
+    return dateOfBirth ? Date.now() - dateOfBirth : 0;
+  }, [dateOfBirth]);
 
+  // TODO изменить расчет длины временной шкалы
   useEffect(() => {
-    if (!dateOfBirth || !containerRef.current) return;
+    if (!dateOfBirth) return;
 
     const basicLength = events.length * CONTENT_HEIGHT_PX;
     const length =
       basicLength < window.screen.height
         ? window.screen.height * 0.7
         : basicLength;
+
     setTimelineLength(length);
-  }, [dateOfBirth, events]);
+  }, [dateOfBirth, events.length]);
+  // ///////////////////////////////////
 
-  const calculatedPositions = useMemo(() => {
-    if (!dateOfBirth || !containerRef.current) return null;
-    const lifeSpan = Date.now() - dateOfBirth;
+  return { timelineLength, lifeSpan };
+}
 
-    const calculatedEventPositions = calculateEventPositions(
-      events,
-      dateOfBirth,
-      lifeSpan,
-      timelineLength
-    );
+export function useEventPositions(
+  dateOfBirth: number | null,
+  events: DateItem[],
+  lifeSpan: number,
+  timelineLength: number
+) {
+  const [eventPositions, setEventPositions] = useState<EventPosition>({
+    singles: [],
+    clusters: [],
+  });
 
-    const calculatedPeriodPositions = calculatePeriodPositions(
-      periods,
-      dateOfBirth,
-      lifeSpan,
-      timelineLength
-    );
-
-    return {
-      eventPositions: calculatedEventPositions,
-      periodPositions: calculatedPeriodPositions,
-    };
-  }, [dateOfBirth, events, periods, timelineLength]);
-
-  useLayoutEffect(() => {
-    if (calculatedPositions) {
-      setEventPositions(calculatedPositions.eventPositions);
-      setPeriodPositions(calculatedPositions.periodPositions);
+  useEffect(() => {
+    if (dateOfBirth && timelineLength !== 0 && events.length > 0) {
+      const result = calculateEventPositions(
+        events,
+        dateOfBirth,
+        lifeSpan,
+        timelineLength
+      );
+      setEventPositions(result);
     }
-  }, [calculatedPositions]);
+  }, [dateOfBirth, events, lifeSpan, timelineLength]);
 
-  return {
-    timelineLength,
-    eventPositions,
-    periodPositions,
-    containerRef,
-  };
+  return eventPositions;
+}
+
+export function usePeriodPositions(
+  dateOfBirth: number | null,
+  periods: DateItem[],
+  lifeSpan: number,
+  timelineLength: number,
+  containerRef: RefObject<HTMLDivElement | null>
+) {
+  const [periodPositions, setPeriodPositions] = useState<PeriodPosition[]>([]);
+
+  // расчёт позиций
+  useEffect(() => {
+    if (dateOfBirth && timelineLength !== 0 && periods.length > 0) {
+      const result = calculatePeriodPositions(
+        periods,
+        dateOfBirth,
+        lifeSpan,
+        timelineLength
+      );
+      setPeriodPositions(result);
+    }
+  }, [dateOfBirth, periods, lifeSpan, timelineLength]);
+
+  // пересчёт лейблов
+  const recalcLabels = useCallback(() => {
+    if (!containerRef.current) return;
+
+    const blocks =
+      containerRef.current.querySelectorAll<HTMLDivElement>(".description");
+
+    setPeriodPositions((prev) => {
+      let sum = 0;
+      return prev.map((pos, index) => {
+        const block = blocks[index];
+        if (!block) return pos;
+
+        const height = block.getBoundingClientRect().height;
+        const newLabelTop = sum > pos.startPos ? sum - pos.startPos : 0;
+
+        sum =
+          pos.startPos > sum ? pos.startPos + height + 10 : sum + height + 10;
+
+        return { ...pos, labelTop: newLabelTop };
+      });
+    });
+  }, [containerRef]);
+
+  // вызываем после рендера
+  useLayoutEffect(() => {
+    if (periodPositions.length > 0 && containerRef.current) {
+      const frameId = requestAnimationFrame(recalcLabels);
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [periodPositions, recalcLabels]);
+
+  // слушаем ресайз
+  useLayoutEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver(() => {
+      setTimeout(recalcLabels, 10);
+    });
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, [recalcLabels, containerRef]);
+
+  return periodPositions;
 }

@@ -1,12 +1,14 @@
 .periodBlock {
   position: absolute;
   right: 50%;
-  padding-right: 15vw;
   width: 45%;
 }
 
 .periodDescription {
   word-break: break-word;
+  position: relative;
+  padding-right: 10px;
+  z-index: 60;
 }
 
 .timelinePeriod {
@@ -35,4 +37,9 @@
 
 .timelinePeriod:hover .tooltip {
   opacity: 1;
+}
+
+.connector {
+  position: absolute;
+  z-index: 60;
 }
