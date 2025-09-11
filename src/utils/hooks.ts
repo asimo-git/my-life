@@ -8,35 +8,25 @@ import {
 } from "react";
 import { calculateEventPositions, calculatePeriodPositions } from "./utils";
 import type { DateItem, EventPosition, PeriodPosition } from "./types";
-import { CONTENT_HEIGHT_PX } from "./constants";
 
-export function useTimelineLength(
-  dateOfBirth: number | null,
-  events: DateItem[]
-) {
-  const [timelineLength, setTimelineLength] = useState(0);
-
+export function useTimelineLength(dateOfBirth: number | null, scale: number) {
   const lifeSpan = useMemo(() => {
     return dateOfBirth ? Date.now() - dateOfBirth : 0;
   }, [dateOfBirth]);
 
-  // TODO изменить расчет длины временной шкалы
-  useEffect(() => {
-    if (!dateOfBirth) return;
+  const timelineLength = useMemo(() => {
+    if (!dateOfBirth) return 0;
+    const baseLength = window.screen.height * 0.75;
+    return baseLength * scale;
+  }, [dateOfBirth, scale]);
 
-    const basicLength = events.length * CONTENT_HEIGHT_PX;
-    const length =
-      basicLength < window.screen.height
-        ? window.screen.height * 0.7
-        : basicLength;
-
-    setTimelineLength(length);
-  }, [dateOfBirth, events.length]);
-  // ///////////////////////////////////
-
-  return { timelineLength, lifeSpan };
+  return {
+    timelineLength,
+    lifeSpan,
+  };
 }
 
+/////////////////////////////////////////////////////////
 export function useEventPositions(
   dateOfBirth: number | null,
   events: DateItem[],
@@ -62,7 +52,7 @@ export function useEventPositions(
 
   return eventPositions;
 }
-
+/////////////////////////////////////////////////////////////////
 export function usePeriodPositions(
   dateOfBirth: number | null,
   periods: DateItem[],

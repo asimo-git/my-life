@@ -44,7 +44,7 @@ export default function ClusterEventBlock({
             }}
           >
             {items.map((item) => (
-              <div className={styles.eventDescription}>
+              <div className={styles.eventDescription} key={item.id}>
                 <span>
                   {new Date(item.timestamp[0]).toLocaleDateString("ru-RU", {
                     day: "2-digit",

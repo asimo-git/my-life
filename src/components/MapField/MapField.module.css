@@ -1,11 +1,26 @@
+.header {
+  display: flex;
+  justify-content: start;
+  padding: 0.5em 1em;
+  align-items: end;
+  gap: 0.5em;
+}
+
 .title {
   font-size: 2em;
-  padding: 0.2em 0.5em;
+  margin-right: 1em;
+}
+
+.zoomButton {
+  width: 40px;
+  font-size: 1.5em;
 }
 
 .mapContainer {
   position: relative;
   margin-top: -3px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .mapContainer::before {

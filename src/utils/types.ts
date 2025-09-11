@@ -20,6 +20,5 @@ export interface PeriodPosition {
   startPos: number;
   endPos: number;
   widthOffset: number;
-  // id: string;
   labelTop: number;
 }

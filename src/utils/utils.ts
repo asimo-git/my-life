@@ -86,49 +86,6 @@ export function calculateEventPositions(
   return { singles, clusters };
 }
 
-// export function calculatePeriodPositions(
-//   periods: DateItem[],
-//   dateOfBirth: number,
-//   lifeSpan: number,
-//   timelineHeight: number
-// ) {
-//   let positions = periods.map((item) => {
-//     const [start, end] = item.timestamp;
-//     return {
-//       startPos: ((start - dateOfBirth) / lifeSpan) * timelineHeight,
-//       endPos: ((end - dateOfBirth) / lifeSpan) * timelineHeight,
-//       widthOffset: 0,
-//     };
-//   });
-
-//   for (let i = 0; i < positions.length; i++) {
-//     const current = positions[i];
-
-//     let usedLevels = new Set<number>();
-//     for (let j = 0; j < i; j++) {
-//       const prev = positions[j];
-//       const overlap = prev.endPos > current.startPos;
-//       if (overlap) {
-//         usedLevels.add(prev.widthOffset / 10);
-//       }
-//     }
-
-//     let level = 0;
-//     while (usedLevels.has(level)) {
-//       level++;
-//     }
-//     current.widthOffset = level * 10;
-//   }
-
-//   const positionsWithShift = positions.map((pos, i, arr) => {
-//     let shiftDescription =
-//       i < arr.length - 1 && arr[i + 1].startPos - pos.startPos < 30;
-//     return { ...pos, shiftDescription };
-//   });
-
-//   return positionsWithShift;
-// }
-
 export function calculatePeriodPositions(
   periods: DateItem[],
   dateOfBirth: number,
@@ -142,13 +99,10 @@ export function calculatePeriodPositions(
       startPos,
       endPos: ((end - dateOfBirth) / lifeSpan) * timelineHeight,
       widthOffset: 0,
-      // id: item.id,
-      labelTop: 0, // позиция для описания
-      // descriptionHeight: 20, // допустим, высота описания 20px
+      labelTop: 0,
     };
   });
 
-  // Вычисляем уровни (как у тебя)
   for (let i = 0; i < positions.length; i++) {
     const current = positions[i];
 
@@ -168,18 +122,5 @@ export function calculatePeriodPositions(
     current.widthOffset = level * 10;
   }
 
-  // 🔹 Collision detection для описаний
-  // const sorted = [...positions].sort((a, b) => a.labelTop - b.labelTop);
-
-  // for (let i = 1; i < positions.length; i++) {
-  //   const prev = positions[i - 1];
-  //   const curr = positions[i];
-
-  //   if (curr.labelTop < prev.labelTop + 75) {
-  //     // если пересекаются → сдвигаем вниз
-  //     curr.labelTop = prev.labelTop + 75;
-  //   }
-  // }
-  // console.log(positions);
   return positions;
 }

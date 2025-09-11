@@ -7,10 +7,17 @@ export default function ReduxProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     try {
       const savedState = localStorage.getItem("datesState");
+      const savedScale = localStorage.getItem("scale");
       if (savedState) {
         store.dispatch({
           type: "dates/hydrate",
           payload: JSON.parse(savedState),
+        });
+      }
+      if (savedScale) {
+        store.dispatch({
+          type: "scale/hydrate",
+          payload: JSON.parse(savedScale),
         });
       }
 
@@ -19,6 +26,7 @@ export default function ReduxProvider({ children }: PropsWithChildren) {
           "datesState",
           JSON.stringify(store.getState().dates)
         );
+        localStorage.setItem("scale", JSON.stringify(store.getState().scale));
       });
 
       return () => unsubscribe();
