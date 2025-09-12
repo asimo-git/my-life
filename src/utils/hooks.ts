@@ -105,7 +105,7 @@ export function usePeriodPositions(
       const frameId = requestAnimationFrame(recalcLabels);
       return () => cancelAnimationFrame(frameId);
     }
-  }, [periodPositions, recalcLabels]);
+  }, [periods, recalcLabels]);
 
   // слушаем ресайз
   useLayoutEffect(() => {

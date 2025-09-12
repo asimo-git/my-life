@@ -1,5 +1,10 @@
 import { CONTENT_HEIGHT_PX, EVENT_CLUSTER_THRESHOLD_PX } from "./constants";
-import type { DateItem, EventPosition } from "./types";
+import type {
+  ClusterEventPosition,
+  DateItem,
+  EventPosition,
+  SingleEventPosition,
+} from "./types";
 
 export function getDayTimestamp(date: Date): number {
   return new Date(
@@ -9,22 +14,21 @@ export function getDayTimestamp(date: Date): number {
   ).getTime();
 }
 
-///////unused function////////
-export function adjustDescriptions(
-  positions: { pointPos: number; descPos: number }[]
-) {
+export function adjustDescriptions(positions: SingleEventPosition[]) {
   const adjusted = [...positions];
   for (let i = 1; i < adjusted.length; i++) {
     const prev = adjusted[i - 1];
     const curr = adjusted[i];
 
-    if (curr.descPos < prev.descPos + CONTENT_HEIGHT_PX) {
-      curr.descPos = prev.descPos + CONTENT_HEIGHT_PX;
+    if (
+      curr.descriptionPosition <
+      prev.descriptionPosition + CONTENT_HEIGHT_PX
+    ) {
+      curr.descriptionPosition = prev.descriptionPosition + CONTENT_HEIGHT_PX;
     }
   }
   return adjusted;
 }
-/////////////////////////////
 
 export function calculateEventPositions(
   events: DateItem[],
@@ -34,8 +38,8 @@ export function calculateEventPositions(
 ): EventPosition {
   if (!events.length) return { singles: [], clusters: [] };
 
-  const singles: { position: number; event: DateItem }[] = [];
-  const clusters: { position: number; events: DateItem[] }[] = [];
+  const singles: SingleEventPosition[] = [];
+  const clusters: ClusterEventPosition[] = [];
 
   const calcPos = (date: number) =>
     ((date - dateOfBirth) / lifeSpan) * timelineHeight;
@@ -63,7 +67,8 @@ export function calculateEventPositions(
         });
       } else {
         singles.push({
-          position: cluster[0].position,
+          pointPosition: cluster[0].position,
+          descriptionPosition: cluster[0].position,
           event: cluster[0].event,
         });
       }
@@ -78,12 +83,15 @@ export function calculateEventPositions(
     });
   } else {
     singles.push({
-      position: cluster[0].position,
+      pointPosition: cluster[0].position,
+      descriptionPosition: cluster[0].position,
       event: cluster[0].event,
     });
   }
 
-  return { singles, clusters };
+  const ajustSingles = adjustDescriptions(singles);
+
+  return { singles: ajustSingles, clusters };
 }
 
 export function calculatePeriodPositions(

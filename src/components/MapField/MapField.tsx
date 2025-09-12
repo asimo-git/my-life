@@ -23,7 +23,7 @@ export default function MapField() {
   const scale = useSelector((state: RootState) => state.scale);
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  console.log("fdgdfg");
+
   const { timelineLength, lifeSpan } = useTimelineLength(dateOfBirth, scale);
 
   const eventPositions = useEventPositions(
@@ -73,8 +73,9 @@ export default function MapField() {
         {eventPositions.singles.map((item) => (
           <EventBlock
             key={item.event.id}
-            item={item.event}
-            position={item.position}
+            event={item.event}
+            pointPosition={item.pointPosition}
+            descriptionPosition={item.descriptionPosition}
           />
         ))}
 

@@ -19,11 +19,9 @@
 }
 
 .eventDescription {
-  border-bottom: 1px solid var(--accent-color);
-}
-
-.eventDescription:last-child {
-  border-bottom: none;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  padding: 5px;
 }
 
 .clusterContent {
@@ -36,7 +34,6 @@
   transform: translateX(100%) translateY(-50%);
   background-color: var(--pale-gradient-color);
   word-break: break-word;
-  border: solid 2px var(--accent-color);
   z-index: 30;
 }
 
@@ -44,4 +41,8 @@
   position: absolute;
   left: 50%;
   width: 30px;
+}
+
+.eventDate {
+  font-size: 0.8em;
 }

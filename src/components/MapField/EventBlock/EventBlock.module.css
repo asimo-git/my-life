@@ -39,8 +39,8 @@
 
 .tooltip {
   position: absolute;
-  bottom: 170%;
-  left: -270%;
+  bottom: 90%;
+  left: -550%;
   background: var(--light-accent-color);
   padding: 4px 8px;
   border-radius: 6px;
@@ -56,5 +56,5 @@
 }
 
 .timelinePoint:hover ~ .timelineContent {
-  z-index: 25;
+  z-index: 100;
 }

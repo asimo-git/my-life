@@ -1,26 +1,22 @@
-import type { DateItem } from "../../../utils/types";
+import type { SingleEventPosition } from "../../../utils/types";
 import styles from "./EventBlock.module.css";
 
 export default function EventBlock({
-  item,
-  position,
-}: {
-  item: DateItem;
-  position: number;
-}) {
-  // if (!item.description) return null;
-
+  event,
+  pointPosition,
+  descriptionPosition,
+}: SingleEventPosition) {
   return (
     <div className={styles.timelineItem}>
       <div
         className={styles.timelinePoint}
         style={{
-          top: `${position}px`,
-          backgroundColor: item.color,
+          top: `${pointPosition}px`,
+          backgroundColor: event.color,
         }}
       >
         <div className={styles.tooltip}>
-          {new Date(item.timestamp[0]).toLocaleDateString("ru-RU", {
+          {new Date(event.timestamp[0]).toLocaleDateString("ru-RU", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
@@ -28,32 +24,32 @@ export default function EventBlock({
         </div>
       </div>
 
-      {item.description && (
+      {event.description && (
         <>
           <svg
             className={styles.leaderLine}
             style={{
-              top: `${position}px`,
+              top: `${pointPosition}px`,
             }}
           >
             <line
               x1="0"
               y1="0"
-              x2="30"
-              y2="0"
-              stroke={`${item.color}`}
-              strokeWidth="3"
+              x2="32"
+              y2={`${descriptionPosition - pointPosition}`}
+              stroke={`${event.color}`}
+              strokeWidth="2"
             />
           </svg>
 
           <div
             className={styles.timelineContent}
             style={{
-              top: `${position}px`,
-              border: `solid 2px ${item.color}`,
+              top: `${descriptionPosition}px`,
+              border: `solid 2px ${event.color}`,
             }}
           >
-            {item.description}
+            {event.description}
           </div>
         </>
       )}
