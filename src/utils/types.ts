@@ -26,6 +26,7 @@ export interface ClusterEventPosition {
 }
 
 export interface PeriodPosition {
+  id: string;
   startPos: number;
   endPos: number;
   widthOffset: number;

@@ -7,6 +7,7 @@ export const store = configureStore({
     dates: datesReducer,
     scale: scaleReducer,
   },
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

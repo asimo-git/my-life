@@ -60,9 +60,10 @@ export function usePeriodPositions(
   timelineLength: number,
   containerRef: RefObject<HTMLDivElement | null>
 ) {
-  const [periodPositions, setPeriodPositions] = useState<PeriodPosition[]>([]);
+  const [periodPositions, setPeriodPositions] = useState<
+    Map<string, PeriodPosition>
+  >(new Map());
 
-  // расчёт позиций
   useEffect(() => {
     if (dateOfBirth && timelineLength !== 0 && periods.length > 0) {
       const result = calculatePeriodPositions(
@@ -75,18 +76,24 @@ export function usePeriodPositions(
     }
   }, [dateOfBirth, periods, lifeSpan, timelineLength]);
 
-  // пересчёт лейблов
   const recalcLabels = useCallback(() => {
     if (!containerRef.current) return;
 
     const blocks =
       containerRef.current.querySelectorAll<HTMLDivElement>(".description");
+    const blockMap = new Map<string, HTMLDivElement>();
+    blocks.forEach((block) => {
+      const id = block.dataset.periodId;
+      if (id) blockMap.set(id, block);
+    });
 
     setPeriodPositions((prev) => {
+      const updated = new Map(prev);
       let sum = 0;
-      return prev.map((pos, index) => {
-        const block = blocks[index];
-        if (!block) return pos;
+
+      for (const [id, pos] of prev.entries()) {
+        const block = blockMap.get(id);
+        if (!block) continue;
 
         const height = block.getBoundingClientRect().height;
         const newLabelTop = sum > pos.startPos ? sum - pos.startPos : 0;
@@ -94,29 +101,28 @@ export function usePeriodPositions(
         sum =
           pos.startPos > sum ? pos.startPos + height + 10 : sum + height + 10;
 
-        return { ...pos, labelTop: newLabelTop };
-      });
+        updated.set(id, { ...pos, labelTop: newLabelTop });
+      }
+
+      return updated;
     });
   }, [containerRef]);
 
-  // вызываем после рендера
   useLayoutEffect(() => {
-    if (periodPositions.length > 0 && containerRef.current) {
-      const frameId = requestAnimationFrame(recalcLabels);
-      return () => cancelAnimationFrame(frameId);
-    }
+    if (periodPositions.size === 0) return;
+    const raf = requestAnimationFrame(recalcLabels);
+    return () => cancelAnimationFrame(raf);
   }, [periods, recalcLabels]);
 
-  // слушаем ресайз
   useLayoutEffect(() => {
-    if (!containerRef.current) return;
+    const root = containerRef.current;
+    if (!root) return;
     const observer = new ResizeObserver(() => {
       setTimeout(recalcLabels, 10);
     });
-    observer.observe(containerRef.current);
-
+    observer.observe(root);
     return () => observer.disconnect();
-  }, [recalcLabels, containerRef]);
+  }, [containerRef, recalcLabels]);
 
   return periodPositions;
 }

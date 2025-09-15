@@ -104,6 +104,7 @@ export function calculatePeriodPositions(
     const [start, end] = item.timestamp;
     const startPos = ((start - dateOfBirth) / lifeSpan) * timelineHeight;
     return {
+      id: item.id,
       startPos,
       endPos: ((end - dateOfBirth) / lifeSpan) * timelineHeight,
       widthOffset: 0,
@@ -130,5 +131,5 @@ export function calculatePeriodPositions(
     current.widthOffset = level * 10;
   }
 
-  return positions;
+  return new Map(positions.map((pos) => [pos.id, pos]));
 }

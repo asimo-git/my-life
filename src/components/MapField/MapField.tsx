@@ -23,7 +23,6 @@ export default function MapField() {
   const scale = useSelector((state: RootState) => state.scale);
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-
   const { timelineLength, lifeSpan } = useTimelineLength(dateOfBirth, scale);
 
   const eventPositions = useEventPositions(
@@ -87,13 +86,11 @@ export default function MapField() {
           />
         ))}
 
-        {periodPositions.map((item, index) => (
-          <PeriodBlock
-            key={periods[index]?.id || `period-${index}`}
-            item={periods[index]}
-            position={item}
-          />
-        ))}
+        {periods.map((period) => {
+          const pos = periodPositions.get(period.id);
+          if (!pos) return null;
+          return <PeriodBlock key={period.id} item={period} position={pos} />;
+        })}
       </div>
 
       <HerePoint className={`${styles.hereIcon} ${styles.icon}`} />

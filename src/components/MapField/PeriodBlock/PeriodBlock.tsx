@@ -19,6 +19,7 @@ export default function PeriodBlock({
     >
       <div
         className={`${styles.periodDescription} description`}
+        data-period-id={item.id}
         style={{
           top: `${position.labelTop}px`,
           borderTop: `2px solid ${item.color}B3`,
