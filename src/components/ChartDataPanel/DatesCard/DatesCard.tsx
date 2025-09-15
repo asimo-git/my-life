@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DateLine from "../DateLine/DateLine";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { addNewItemThunk } from "../../../redux/thunks";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function DatesCard() {
   const dates = useSelector((state: RootState) => state.dates.events);
@@ -12,16 +13,25 @@ export default function DatesCard() {
     <div className="card">
       <h2 className="subtitle">Важные даты</h2>
       <div className="date-container">
-        {dates.map((item) => (
-          <DateLine
-            key={item.id}
-            id={item.id}
-            mode="date"
-            initialTimestamp={item.timestamp}
-            initialDescription={item.description}
-            initialColor={item.color}
-          />
-        ))}
+        <AnimatePresence>
+          {dates.map((item) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              <DateLine
+                id={item.id}
+                mode="date"
+                initialTimestamp={item.timestamp}
+                initialDescription={item.description}
+                initialColor={item.color}
+              />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
       <button
         className="main-button"

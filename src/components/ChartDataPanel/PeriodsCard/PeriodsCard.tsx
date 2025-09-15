@@ -4,6 +4,7 @@ import DateLine from "../DateLine/DateLine";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { addNewPeriodThunk } from "../../../redux/thunks";
 import { useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function PeriodsCard() {
   const periods = useSelector((state: RootState) => state.dates.periods);
@@ -21,16 +22,26 @@ export default function PeriodsCard() {
     <div className="card">
       <h2 className="subtitle">Периоды жизни</h2>
       <div className="date-container">
-        {periods.map((item) => (
-          <DateLine
-            key={item.id}
-            id={item.id}
-            mode="range"
-            initialTimestamp={item.timestamp}
-            initialDescription={item.description}
-            initialColor={item.color}
-          />
-        ))}
+        <AnimatePresence>
+          {periods.map((item) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              <DateLine
+                key={item.id}
+                id={item.id}
+                mode="range"
+                initialTimestamp={item.timestamp}
+                initialDescription={item.description}
+                initialColor={item.color}
+              />{" "}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
       <button
         className="main-button"

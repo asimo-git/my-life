@@ -21,6 +21,16 @@
   box-shadow: var(--shadow);
 }
 
+.sidebar > * {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.closedSidebar .sidebar > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .collapse-button {
   position: fixed;
   bottom: 0;

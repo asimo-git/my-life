@@ -37,6 +37,10 @@
   justify-content: center;
 }
 
+.dateLine .deleteBtn:hover {
+  transform: none;
+}
+
 .dateLine .rangeInput:global(.flatpickr-input) {
   max-width: 200px;
 }

@@ -8,14 +8,6 @@
   padding: 5vw;
 }
 
-.welcomeBlock.exiting {
-  animation: 1s fadeOutDown ease-in forwards;
-}
-
-.title {
-  animation: 1s fadeInUp ease-out both;
-}
-
 .title,
 .subtitle {
   margin-bottom: 5vh;
@@ -23,14 +15,12 @@
 
 .subtitle {
   text-align: center;
-  animation: 1s fadeInUp 1s ease-out both;
 }
 
 .datepickerWrapper {
   position: relative;
   width: 100%;
   max-width: 300px;
-  animation: 1s fadeInUp 2s ease-out both;
 }
 
 .flatpickrInput {
@@ -62,26 +52,4 @@
 
 h2.react-datepicker__current-month {
   margin-bottom: 5px;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeOutDown {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.95);
-  }
 }
