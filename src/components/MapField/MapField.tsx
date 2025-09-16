@@ -42,9 +42,11 @@ export default function MapField() {
 
   return (
     <>
+      <h1 className={styles.title}>
+        Линия<br></br> жизни
+      </h1>
       <div className={styles.header}>
-        <h1 className={styles.title}>Линия жизни</h1>
-        <div>Масштаб:</div>
+        {/* <div>Масштаб:</div> */}
         <button
           className={styles.zoomButton}
           onClick={() => dispatch(zoomOut())}

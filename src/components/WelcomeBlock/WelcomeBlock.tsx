@@ -45,11 +45,15 @@ export default function WelcomeBlock() {
         animate="visible"
       >
         <motion.h1 className={styles.title} variants={itemVariants}>
-          Карта жизни
+          Линия жизни
         </motion.h1>
         <motion.h2 className={styles.subtitle} variants={itemVariants}>
           Позволит вам схематично и наглядно отобразить на едином отрезке
           главные события и периоды вашей жизни.
+          <br></br>
+          <br></br>
+          Все данные хранятся исключительно в вашем браузере и недосупны за его
+          пределами. Вы в безопасности!
         </motion.h2>
         <motion.h2 className={styles.subtitle} variants={itemVariants}>
           Для начала...
