@@ -53,7 +53,7 @@ const datesSlice = createSlice({
           (item) => item.id !== action.payload.id
         );
     },
-    hydrate: (state, action: PayloadAction<DatesState>) => {
+    hydrate: (_, action: PayloadAction<DatesState>) => {
       return action.payload;
     },
   },
