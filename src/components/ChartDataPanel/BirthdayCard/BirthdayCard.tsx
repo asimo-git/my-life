@@ -1,4 +1,3 @@
-import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
@@ -22,6 +21,7 @@ export default function BirthdayCard() {
         }
         options={{
           dateFormat: "d.m.Y",
+          disableMobile: true,
         }}
       />
     </div>

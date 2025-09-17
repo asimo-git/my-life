@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import "flatpickr/dist/themes/airbnb.css";
 import Flatpickr from "react-flatpickr";
 import { getDayTimestamp } from "../../../utils/utils";
 import { useEffect, useState } from "react";
@@ -55,6 +54,7 @@ export default function DateLine({
           dateFormat: "d.m.Y",
           minDate: new Date(dateOfBirth ?? "1000-01-01T00:00:00Z"),
           maxDate: new Date(),
+          disableMobile: true,
         }}
       />
 
@@ -68,6 +68,7 @@ export default function DateLine({
             dateFormat: "d.m.Y",
             minDate: new Date(date[0]),
             maxDate: new Date(),
+            disableMobile: true,
           }}
         />
       )}

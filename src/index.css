@@ -39,7 +39,7 @@ body {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 h1 {
@@ -49,7 +49,7 @@ h1 {
 }
 
 h2 {
-  margin: 0 0 2vh;
+  margin: 0 0 2dvh;
 }
 
 h1,
@@ -105,8 +105,8 @@ button:disabled {
 }
 
 .card {
-  margin: 2vh 0;
-  padding: 2vh;
+  margin: 2dvh 0;
+  padding: 2dvh;
   background: var(--main-color);
   border-radius: 12px;
   border-left: 4px solid var(--light-accent-color);
