@@ -10,6 +10,7 @@ export default function EventBlock({
     <div className={styles.timelineItem}>
       <div
         className={styles.timelinePoint}
+        tabIndex={0}
         style={{
           top: `${pointPosition}px`,
           backgroundColor: event.color,

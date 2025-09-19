@@ -21,7 +21,7 @@
 
 .tooltip {
   position: absolute;
-  bottom: 50%;
+  bottom: 90%;
   right: 110%;
   background: var(--light-accent-color);
   padding: 4px 8px;

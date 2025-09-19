@@ -51,10 +51,17 @@
   transition: all 0.4s ease-in-out;
 }
 
-.timelinePoint:hover .tooltip {
+@media (hover: hover) and (pointer: fine) {
+  .timelinePoint:hover .tooltip {
+    opacity: 1;
+  }
+}
+
+.timelinePoint:focus .tooltip {
   opacity: 1;
 }
 
-.timelinePoint:hover ~ .timelineContent {
+.timelinePoint:hover ~ .timelineContent,
+.timelinePoint:focus ~ .timelineContent {
   z-index: 100;
 }

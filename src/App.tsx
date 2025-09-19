@@ -24,6 +24,7 @@ function App() {
         <aside className="sidebar">
           <ChartDataPanel />
         </aside>
+
         <button
           className="collapse-button"
           onClick={() => {

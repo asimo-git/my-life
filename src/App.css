@@ -42,6 +42,7 @@
   /* background: var(--pale-gradient-color); */
   transition: 0.3s linear;
   text-align: right;
+  flex: 0 0 auto;
 }
 
 .collapse-button:hover {
