@@ -31,7 +31,7 @@
   padding: 5px 10px;
   border-radius: 8px;
   box-shadow: var(--shadow);
-  transform: translateX(100%) translateY(-50%);
+  transform: translateX(100%) translateY(-50px);
   background-color: var(--pale-gradient-color);
   word-break: break-word;
   z-index: 30;
